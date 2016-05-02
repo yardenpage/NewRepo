@@ -45,5 +45,9 @@ namespace ATP2016Project.Model.Algorithms.Search
 
         public abstract void PrintCorrdinates();
 
+        public int CompareTo(AState other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
