@@ -10,7 +10,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     public class SimpleMaze2dGenerator : AMazeGenerator
     {
         private static Random random_y = new Random(); //a random object for choosing a random neighbour
-
+        /// <summary>
+        /// generate a simple maze 2d
+        /// </summary>
+        /// <param name="points"> the measures of the wanted maze </param>
+        /// <returns> a new maze </returns>
         public override AMaze generate(ArrayList points)
         {
             //add the corrdinates to the local array points

@@ -9,7 +9,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
     public class MyMaze3dGenerator : AMazeGenerator
     {
-
+        /// <summary>
+        /// generate a new simple maze
+        /// </summary>
+        /// <param name="points"> the measures of the new maze </param>
+        /// <returns> a maze </returns>
         public override AMaze generate(ArrayList points)
         {
             //add the corrdinates to the local array points
