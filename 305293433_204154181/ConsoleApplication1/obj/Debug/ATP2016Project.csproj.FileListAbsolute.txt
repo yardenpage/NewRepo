@@ -43,3 +43,6 @@ C:\Users\Dell\Source\Repos\NewRepo\305293433_204154181\ConsoleApplication1\obj\D
 C:\Users\TAL\Source\Repos\lll\305293433_204154181\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
 C:\Users\TAL\Source\Repos\lll\305293433_204154181\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 C:\Users\TAL\Source\Repos\lll\305293433_204154181\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+C:\Users\Dell\Source\Repos\pr2\305293433_204154181\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\Dell\Source\Repos\pr2\305293433_204154181\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\Dell\Source\Repos\pr2\305293433_204154181\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

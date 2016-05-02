@@ -10,28 +10,42 @@ namespace ATP2016Project.Model.Algorithms.Search
     {
         private Queue<AState> m_openList;
         private int countOfStates=1;
-
+        /// <summary>
+        /// an empty constructor 
+        /// </summary>
         public BreadthFirstSearch()
         {
             m_openList = new Queue<AState>();
         }
-
+        /// <summary>
+        /// clear thr open and close lists
+        /// </summary>
         protected override void ClearOpenClosedLists()
         {
             m_openList.Clear();
             base.ClearOpenClosedLists();
         }
-
+        /// <summary>
+        /// check if the open list is empty
+        /// </summary>
+        /// <returns> true/false </returns>
         public override bool IsEmptyOpenList()
         {
             return (m_openList.Count == 0);
         }
-
+        /// <summary>
+        /// get the size of the open lisr
+        /// </summary>
+        /// <returns> the size of the open list </returns>
         public override int GetOpenListSize()
         {
             return m_openList.Count;
         }
-
+        /// <summary>
+        /// solve the maze
+        /// </summary>
+        /// <param name="searchDomain"> the maze to solve </param>
+        /// <returns> a solyution of the maze </returns>
         public override Solution Solve(ISearchable searchDomain)
         {
             StartMeasureTime();
@@ -66,7 +80,10 @@ namespace ATP2016Project.Model.Algorithms.Search
             StopMeasureTime();
             return solution;
         }
-
+        /// <summary>
+        /// add a state to the open list
+        /// </summary>
+        /// <param name="state"> the state to add </param>
         public override void AddToOpenList(AState state)
         {
             if (!m_openListStates.ContainsKey(state.GetState()))
@@ -76,14 +93,20 @@ namespace ATP2016Project.Model.Algorithms.Search
                 countOfStates++;
             }  
         }
-
+        /// <summary>
+        /// take the last state that insert to the open list
+        /// </summary>
+        /// <returns> a state s</returns>
         public override AState PopOpenList()
         {
             AState popedState = m_openList.Dequeue();
             m_openListStates.Remove(popedState.GetState());
             return popedState;
         }
-
+        /// <summary>
+        /// get the number of state that visited
+        /// </summary>
+        /// <returns> number of states </returns>
         public override int GetNumberOfGeneratedNodes()
         {
             return countOfStates;
