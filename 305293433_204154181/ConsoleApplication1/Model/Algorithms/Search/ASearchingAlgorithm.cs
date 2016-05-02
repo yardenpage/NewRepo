@@ -104,7 +104,7 @@ namespace ATP2016Project.Model.Algorithms.Search
             {
                 solution.AddState(parentState[i]);
             }
-
+            solution.AddState(goal);
             //solution.RevereseSolution();
             return solution;
         }

@@ -41,7 +41,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             TimeSpan runningT = clockTimeAfterGenerate - clockTime;//calculate the differance
             ans = runningT.TotalMilliseconds;//get the time at miliseconds
             runningTime = System.Convert.ToString(ans);//convert the time to int
-            runningTime = "The running time is: " + runningTime + " milliseconds.";
+            runningTime = "Running time (miliseconds): "+ runningTime;
             return runningTime;
         }
         /// <summary>
