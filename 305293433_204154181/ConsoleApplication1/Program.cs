@@ -14,7 +14,7 @@ namespace ATP2016Project
 
         static void Main(string[] args)
         {
-          
+         // kkk
             AMazeGenerator mA = new DFS2dGenerator();
             AMazeGenerator mB = new MyMaze3dGenerator();
             AMazeGenerator mC = new SimpleMaze2dGenerator();
