@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{518F1C93-15C2-47A9-9EDC-D2E4E3E874E7}</ProjectGuid>
+    <ProjectGuid>{E7AE5F25-4969-4501-A36D-8C14518908B7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConsoleApplication1</RootNamespace>
@@ -43,12 +43,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Algorithms\MazeGenerators\DFS2dGenerator.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\MyMaze3dGenerator.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\IMaze.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\IMazeGenerator.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\Maze2d.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\Position.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\Position2d.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\Position3d.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\SimpleMaze2dGenerator.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\AMazeGenerator.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\Maze3d.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\AMaze.cs" />
+    <Compile Include="Model\Algorithms\MazeGenerators\Cell.cs" />
+    <Compile Include="Model\Algorithms\Search\ASearchingAlgorithm.cs" />
+    <Compile Include="Model\Algorithms\Search\AState.cs" />
+    <Compile Include="Model\Algorithms\Search\BreadthFirstSearch.cs" />
+    <Compile Include="Model\Algorithms\Search\DepthFirstSearch.cs" />
+    <Compile Include="Model\Algorithms\Search\ISearchable.cs" />
+    <Compile Include="Model\Algorithms\Search\ISearchingAlgorithm.cs" />
+    <Compile Include="Model\Algorithms\Search\MazeState.cs" />
+    <Compile Include="Model\Algorithms\Search\SearchableMaze3d.cs" />
+    <Compile Include="Model\Algorithms\Search\Solution.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
