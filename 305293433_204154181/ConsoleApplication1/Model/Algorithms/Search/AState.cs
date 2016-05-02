@@ -9,10 +9,11 @@ namespace ATP2016Project.Model.Algorithms.Search
     public abstract class AState : IComparable<AState>
     {
         protected string m_state;
-        protected double m_g;
-        protected double m_cost;
         protected List<AState> m_parentsState;
-
+        /// <summary>
+        /// constructor of a state
+        /// </summary>
+        /// <param name="parentState">the state of the parent</param>
         public AState(AState parentState)
         {
             m_parentsState = new List<AState>();
@@ -22,55 +23,50 @@ namespace ATP2016Project.Model.Algorithms.Search
                 AddToParentList(parentState);
             }
         }
-
+        /// <summary>
+        /// add a state to the list of the parents
+        /// </summary>
+        /// <param name="state"></param>
         private void AddToParentList(AState state)
         {
             m_parentsState.Add(state);
         }
-
-        public int CompareTo(AState state)
-        {
-            return m_cost.CompareTo(state.GetCost());
-        }
-
+ 
+        /// <summary>
+        /// check if 2 states are equal
+        /// </summary>
+        /// <param name="state">the state to compare</param>
+        /// <returns>true if equals else false</returns>
         public bool Equals(AState state)
         {
             return m_state.Equals(state.GetState());
         }
-
-        public double GetG()
-        {
-            return m_g;
-        }
-
-        public void SetG(double g)
-        {
-            m_g = g;
-        }
-
-        public double GetCost()
-        {
-            return m_cost;
-        }
-
-        public void SetCost(double cost)
-        {
-            m_cost = cost;
-        }
-
+        /// <summary>
+        /// return the string of the state
+        /// </summary>
+        /// <returns>string of the state</returns>
         public string GetState()
         {
             return m_state;
         }
-
+        /// <summary>
+        /// get the list of the parents of the state
+        /// </summary>
+        /// <returns>the parents list</returns>
         public List<AState> GetParentState()
         {
             return m_parentsState;
         }
-
+        /// <summary>
+        /// print the state
+        /// </summary>
         public abstract void PrintState();
 
         public abstract void PrintCorrdinates();
 
+        public int CompareTo(AState other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

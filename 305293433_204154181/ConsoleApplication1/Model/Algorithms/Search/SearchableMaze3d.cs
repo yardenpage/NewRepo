@@ -11,26 +11,39 @@ namespace ATP2016Project.Model.Algorithms.Search
     {
 
         private Maze3d m_maze3d;
-
+        /// <summary>
+        /// constructor of a SearchableMaze3d
+        /// </summary>
+        /// <param name="maze">the 3d maze inside the SearchableMaze3d</param>
         public SearchableMaze3d(Maze3d maze)
         {
             m_maze3d = new Maze3d(maze);
         }
-
+        /// <summary>
+        /// return the state of the start of the maze
+        /// </summary>
+        /// <returns>start state</returns>
         public AState GetStartState()
         {
             Position3d start = (Position3d)m_maze3d.getStartPosition();
             AState state = new MazeState(null, start, m_maze3d);
             return state;
         }
-
+        /// <summary>
+        /// return the state of the end of the maze
+        /// </summary>
+        /// <returns>end state</returns>
         public AState GetGoalState()
         {
             Position3d goal = (Position3d)m_maze3d.getGoalPosition();
             AState state = new MazeState(null, goal, m_maze3d);
             return state;
         }
-
+        /// <summary>
+        /// find the neighbours of a state
+        /// </summary>
+        /// <param name="state">the state will should find his neighbours </param>
+        /// <returns>a list of neighbours</returns>
         public IEnumerable<AState> GetAllSuccessors(AState state)
         {
             List<AState> successors = new List<AState>();

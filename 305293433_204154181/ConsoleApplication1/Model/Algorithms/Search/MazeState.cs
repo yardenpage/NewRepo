@@ -12,7 +12,12 @@ namespace ATP2016Project.Model.Algorithms.Search
 
         private Maze3d maze3d;
         private Position3d position3d;
-
+/// <summary>
+/// constructor ofmaze state
+/// </summary>
+/// <param name="pState">the parent state</param>
+/// <param name="mState">the point of the state</param>
+/// <param name="m">the maze that this atste is a part of</param>
         public MazeState(AState pState, Position3d mState, Maze3d m)
             : base(pState)
         {
@@ -20,12 +25,17 @@ namespace ATP2016Project.Model.Algorithms.Search
             position3d = mState;
             m_state = mState.getPrint();
         }
-
+        /// <summary>
+        /// return the board
+        /// </summary>
+        /// <returns>the bourd</returns>
         public Maze3d getBoard()
         {
             return maze3d;
         }
-
+        /// <summary>
+        /// property to posiotion
+        /// </summary>
         public Position3d position
         {
             get
@@ -37,7 +47,9 @@ namespace ATP2016Project.Model.Algorithms.Search
                 position3d = value;
             }
         }
-
+        /// <summary>
+        /// property to x coordinate of the position
+        /// </summary>
         public int x
         {
             get
@@ -45,7 +57,9 @@ namespace ATP2016Project.Model.Algorithms.Search
                 return (int)position3d.x;
             }
         }
-
+        /// <summary>
+        /// property to y coordinate of the position
+        /// </summary>
         public int y
         {
             get
@@ -53,7 +67,9 @@ namespace ATP2016Project.Model.Algorithms.Search
                 return (int)position3d.y;
             }
         }
-
+        /// <summary>
+        /// property to z coordinate of the position
+        /// </summary>
         public int z
         {
             get
@@ -62,7 +78,9 @@ namespace ATP2016Project.Model.Algorithms.Search
             }
         }
 
-
+        /// <summary>
+        /// print the state
+        /// </summary>
         public override void PrintState()
         {
             bool isF = false;
@@ -145,7 +163,12 @@ namespace ATP2016Project.Model.Algorithms.Search
             }
             Console.WriteLine();
         }
-
+        /// <summary>
+        /// check if 2 cordinate are the same
+        /// </summary>
+        /// <param name="s1">first coordinate</param>
+        /// <param name="s2">second coordinate</param>
+        /// <returns>return true or false</returns>
         private bool CompareCorrdinates(string s1, string s2)
         {
             for (int i = 0; i < s1.Length; i++)
@@ -155,7 +178,9 @@ namespace ATP2016Project.Model.Algorithms.Search
             }
             return true;
         }
-
+        /// <summary>
+        /// print the coordinate of the point
+        /// </summary>
         public override void PrintCorrdinates()
         {
             position3d.print();

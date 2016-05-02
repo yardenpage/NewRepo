@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// an interface of an isearchable object
+    /// </summary>
     public interface ISearchable
     {
         AState GetStartState();
