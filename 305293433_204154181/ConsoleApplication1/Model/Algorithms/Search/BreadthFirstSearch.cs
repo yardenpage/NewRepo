@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// a class that inherite ASearchingAlgorithm
+    /// </summary>
     public class BreadthFirstSearch : ASearchingAlgorithm
     {
+        /// <summary>
+        /// a queue of state we just discover
+        /// </summary>
         private Queue<AState> m_openList;
-        private int countOfStates;
+
         /// <summary>
         /// an empty constructor 
         /// </summary>

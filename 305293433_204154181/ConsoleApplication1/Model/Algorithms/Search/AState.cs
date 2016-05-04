@@ -5,10 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
-{
+{/// <summary>
+/// an abstrast class of state that implement IComparable interface
+/// </summary>
     public abstract class AState : IComparable<AState>
     {
+        /// <summary>
+        /// a string that declare a state
+        /// </summary>
         protected string m_state;
+        /// <summary>
+        /// a list that contain all the parents of the state
+        /// </summary>
         protected List<AState> m_parentsState;
         /// <summary>
         /// constructor of a state
@@ -61,9 +69,15 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// print the state
         /// </summary>
         public abstract void PrintState();
-
+        /// <summary>
+        /// print the coordinate
+        /// </summary>
         public abstract void PrintCorrdinates();
-
+        /// <summary>
+        /// icomparble function - not implement
+        /// </summary>
+        /// <param name="other">state</param>
+        /// <returns>nothing</returns>
         public int CompareTo(AState other)
         {
             throw new NotImplementedException();

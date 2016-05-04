@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// a class that inherite ASearchingAlgorithm
+    /// </summary>
     public class DepthFirstSearch : ASearchingAlgorithm
     {
+        /// <summary>
+        /// a queue of state we just discover
+        /// </summary>
         private Stack<AState> m_openList;
-        private int countOfStates;
         /// <summary>
         /// an empty constructor
         /// </summary>
@@ -73,7 +78,7 @@ namespace ATP2016Project.Model.Algorithms.Search
                     {
                         if (!IsStateInClosedList(successor))
                         {
-                            AddToOpenList(successor); 
+                            AddToOpenList(successor);
                         }
                     }
                 }

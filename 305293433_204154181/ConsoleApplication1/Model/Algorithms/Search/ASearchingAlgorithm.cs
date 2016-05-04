@@ -7,11 +7,27 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// class of ASearchingAlgorithm that implement ISearchingAlgorithm interface
+    /// </summary>
     public abstract class ASearchingAlgorithm : ISearchingAlgorithm
     {
+        /// <summary>
+        /// a data base that handle the new states we arrive
+        /// </summary>
         protected Dictionary<string, AState> m_openListStates;
+        /// <summary>
+        /// a data base that handle the states we finish to deal with
+        /// </summary>
         protected Dictionary<String, AState> m_closedList;
+        /// <summary>
+        /// a watch to measure the time
+        /// </summary>
         private Stopwatch m_stopWatch;
+        /// <summary>
+        ///  counter of states
+        /// </summary>
+        protected int countOfStates;
         /// <summary>
         /// constructor of ASearchingAlgorithm
         /// </summary>
@@ -105,7 +121,6 @@ namespace ATP2016Project.Model.Algorithms.Search
                 solution.AddState(parentState[i]);
             }
             solution.AddState(goal);
-            //solution.RevereseSolution();
             return solution;
         }
         /// <summary>

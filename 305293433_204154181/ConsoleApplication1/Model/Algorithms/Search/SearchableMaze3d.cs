@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// class  of SearchableMaze3d that implement ISearchable interface
+    /// </summary>
     public class SearchableMaze3d : ISearchable
     {
-
+        /// <summary>
+        /// m_maze3d
+        /// </summary>
         private Maze3d m_maze3d;
         /// <summary>
         /// constructor of a SearchableMaze3d

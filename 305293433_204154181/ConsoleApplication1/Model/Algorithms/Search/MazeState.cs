@@ -7,17 +7,25 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// class of mazestate the inherit astate class
+    /// </summary>
     public class MazeState : AState
     {
-
+        /// <summary>
+        ///  a maze3d
+        /// </summary>
         private Maze3d maze3d;
+        /// <summary>
+        /// a position3d
+        /// </summary>
         private Position3d position3d;
-/// <summary>
-/// constructor ofmaze state
-/// </summary>
-/// <param name="pState">the parent state</param>
-/// <param name="mState">the point of the state</param>
-/// <param name="m">the maze that this atste is a part of</param>
+        /// <summary>
+        /// constructor ofmaze state
+        /// </summary>
+        /// <param name="pState">the parent state</param>
+        /// <param name="mState">the point of the state</param>
+        /// <param name="m">the maze that this atste is a part of</param>
         public MazeState(AState pState, Position3d mState, Maze3d m)
             : base(pState)
         {

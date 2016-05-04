@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// class of solution
+    /// </summary>
     public class Solution
     {
         private ArrayList m_solutionPath;
