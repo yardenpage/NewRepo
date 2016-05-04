@@ -48,8 +48,8 @@ namespace ATP2016Project
             AMaze maze;
             ArrayList testP = new ArrayList();
             int x = 5; //example length parameter 
-            int y = 5; //example height parameter
-            int z = 4; //example width parameter
+            int y = 7; //example height parameter
+            int z = 6; //example width parameter
             testP.Add(x);
             testP.Add(y);
             testP.Add(z);
