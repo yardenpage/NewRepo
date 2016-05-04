@@ -47,8 +47,8 @@ namespace ATP2016Project
         {
             AMaze maze;
             ArrayList testP = new ArrayList();
-            int x = 8; //example length parameter 
-            int y = 8; //example height parameter
+            int x = 5; //example length parameter 
+            int y = 5; //example height parameter
             int z = 4; //example width parameter
             testP.Add(x);
             testP.Add(y);
@@ -68,8 +68,8 @@ namespace ATP2016Project
             int nums = 1;
             string input;
             ArrayList P = new ArrayList();
-            int x = 10; //example length parameter 
-            int y = 11; //example height parameter
+            int x = 4; //example length parameter 
+            int y = 4; //example height parameter
             int z = 5; //example width parameter
             P.Add(x);
             P.Add(y);
@@ -95,23 +95,9 @@ namespace ATP2016Project
                 Console.WriteLine("Solution found:");
                 Console.WriteLine("***************");
                 Console.WriteLine();
-                Console.WriteLine("To perform the Corrdinates of the Path's by BFS, press 'c'"); 
+                Console.WriteLine("To perform the Corrdinates of the Path's Solution by BFS, press enter"); 
                 input = Console.ReadLine();
-                if (input == "c")
-                {
-                    Console.WriteLine("The Corrdinates of the Path's Solution by BFS algorithm:");
-                    foreach (AState state in solutionbfs.GetSolutionPath())
-                    {
-                        Console.WriteLine("Step number: " + nums);
-                        //state.PrintState();
-                        state.PrintCorrdinates();
-                        nums++;
-                    }
-                }
-                nums = 1;
-                Console.WriteLine("To perform the State of the Path's by BFS, press 'c'");
-                input = Console.ReadLine();
-                if (input == "c")
+                if (input == "")
                 {
                     Console.WriteLine("The Corrdinates of the Path's Solution by BFS algorithm:");
                     foreach (AState state in solutionbfs.GetSolutionPath())
@@ -122,37 +108,51 @@ namespace ATP2016Project
                         nums++;
                     }
                 }
+                //nums = 1;
+                //Console.WriteLine("To perform the State of the Path's by BFS, press enter");
+                //input = Console.ReadLine();
+                //if (input == "")
+                //{
+                //    Console.WriteLine("The Corrdinates of the Path's Solution by BFS algorithm:");
+                //    foreach (AState state in solutionbfs.GetSolutionPath())
+                //    {
+                //        Console.WriteLine("Step number: " + nums);
+                //        state.PrintState();
+                //        //state.PrintCorrdinates();
+                //        nums++;
+                //    }
+                //}
                 Console.WriteLine(string.Format("Number of Moves to goals state - bfs: {0}", solutionbfs.GetSolutionSteps()));
                 nums = 1;
                 Console.WriteLine();
 
-                Console.WriteLine("To perform the Corrdinates of the Path's by DFS, press 'c'");
+                Console.WriteLine("To perform the Corrdinates of the Path's Solution by DFS, press enter");
                 input = Console.ReadLine();
-                if (input == "c")
+                if (input == "")
                 {
                     Console.WriteLine("The Corrdinates of the Path's Solution by DFS algorithm:");
                     foreach (AState state in solutiondfs.GetSolutionPath())
                     {
                         Console.WriteLine("Step number: " + nums);
-                        //state.PrintState();
-                        state.PrintCorrdinates();
-                        nums++;
-                    }
-                }
-                nums = 1;
-                Console.WriteLine("To perform the State of the Path's by DFS, press 'c'");
-                input = Console.ReadLine();
-                if (input == "c")
-                {
-                    Console.WriteLine("The Corrdinates of the Path's Solution by DFS algorithm:");
-                    foreach (AState state in solutionbfs.GetSolutionPath())
-                    {
-                        Console.WriteLine("Step number: " + nums);
                         state.PrintState();
                         //state.PrintCorrdinates();
                         nums++;
                     }
                 }
+                //nums = 1;
+                //Console.WriteLine("To perform the State of the Path's by DFS, press enter");
+                //input = Console.ReadLine();
+                //if (input == "")
+                //{
+                //    Console.WriteLine("The Corrdinates of the Path's Solution by DFS algorithm:");
+                //    foreach (AState state in solutionbfs.GetSolutionPath())
+                //    {
+                //        Console.WriteLine("Step number: " + nums);
+                //        state.PrintState();
+                //        //state.PrintCorrdinates();
+                //        nums++;
+                //    }
+                //}
                 Console.WriteLine(string.Format("Number of Moves to goals state -dfs: {0}", solutiondfs.GetSolutionSteps()));
                 nums = 1;
                 Console.WriteLine();
@@ -163,33 +163,33 @@ namespace ATP2016Project
             }
 
             Console.WriteLine("");
-            Console.WriteLine("To perform the Number of States generated by BFS, press 'c'");
+            Console.WriteLine("To perform the Number of Total States generated by BFS, press enter");
             input = Console.ReadLine();
-            if (input == "c")
+            if (input == "")
             {
                 Console.WriteLine();
-                Console.WriteLine(string.Format("Number of States generated by BFS: {0}", bfs.GetNumberOfGeneratedNodes()));
+                Console.WriteLine(string.Format("Number of Total States generated by BFS: {0}", bfs.GetNumberOfGeneratedNodes()));
                 Console.WriteLine();
             }
-            Console.WriteLine("To perform the Number of States generated by DFS, press 'c'");
+            Console.WriteLine("To perform the Number of Total States generated by DFS, press enter");
             input = Console.ReadLine();
-            if (input == "c")
+            if (input == "")
             {
                 Console.WriteLine();
-                Console.WriteLine(string.Format("Number of States generated by DFS: {0}", dfs.GetNumberOfGeneratedNodes()));
+                Console.WriteLine(string.Format("Number of Total States generated by DFS: {0}", dfs.GetNumberOfGeneratedNodes()));
                 Console.WriteLine();
             }
-            Console.WriteLine("To perform the Solving time BFS, press 'c'");
+            Console.WriteLine("To perform the Solving time BFS, press enter");
             input = Console.ReadLine();
-            if (input == "c")
+            if (input == "")
             {
                 Console.WriteLine();
                 Console.WriteLine(string.Format("Solving time BFS (miliseconds): {0}", bfs.GetSolvingTimeMiliseconds()));
                 Console.WriteLine();
             }
-            Console.WriteLine("To perform the Solving time DFS, press 'c'");
+            Console.WriteLine("To perform the Solving time DFS, press enter");
             input = Console.ReadLine();
-            if (input == "c")
+            if (input == "")
             {
                 Console.WriteLine();
                 Console.WriteLine(string.Format("Solving time DFS (miliseconds): {0}", dfs.GetSolvingTimeMiliseconds()));

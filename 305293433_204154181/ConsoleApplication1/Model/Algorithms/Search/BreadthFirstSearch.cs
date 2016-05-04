@@ -9,7 +9,7 @@ namespace ATP2016Project.Model.Algorithms.Search
     public class BreadthFirstSearch : ASearchingAlgorithm
     {
         private Queue<AState> m_openList;
-        private int countOfStates=1;
+        private int countOfStates;
         /// <summary>
         /// an empty constructor 
         /// </summary>
@@ -50,6 +50,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         {
             StartMeasureTime();
             ClearOpenClosedLists();
+            countOfStates = 0;
             AddToOpenList(searchDomain.GetStartState());
 
             Solution solution = new Solution();
