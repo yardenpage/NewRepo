@@ -17,10 +17,6 @@ namespace ATP2016Project.Model.Algorithms.Compression
         {
             List<byte> compressed = new List<byte>();
             int i = 0;
-            if (data[i] == '1')
-            {
-                compressed.Add(0);
-            }
             while (i < data.Length)
             {
                 byte b = data[i]; // current data
@@ -42,7 +38,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
         {
             List<byte> decompressed = new List<byte>();
             int i = 0;
-            byte value =  0;
+            byte value =  data[0];
             while (i < data.Length)
             {
                 byte b = data[i];

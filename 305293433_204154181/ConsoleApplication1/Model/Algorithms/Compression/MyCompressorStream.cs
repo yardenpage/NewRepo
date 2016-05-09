@@ -39,6 +39,10 @@ namespace ATP2016Project.Model.Algorithms.Compression
         private status m_mode;
         private FileStream fileInStream;
 
+        private byte first;
+        private byte curlast;
+        private int countlast=0;
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -52,6 +56,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
             m_bytesReadFromStream = new byte[m_BufferSize];
             m_queue = new Queue<byte>();
             m_mymaze3DCompressor = new MyMaze3DCompressor();
+            countlast = 0;
         }
 
         public MyCompressorStream(FileStream fileInStream)
@@ -217,23 +222,87 @@ namespace ATP2016Project.Model.Algorithms.Compression
             throw new NotImplementedException();
         }
 
-        public override void Write(byte[] buffer, int offset, int count)
+        public void Write(byte[] buffer)
         {
-            if (m_mode == status.compress)
+            //assume that the input is decompress
+            if (m_io.Length == 0)
             {
-                byte[] data = new byte[count];
-                for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
-                byte[] compressed = m_mymaze3DCompressor.compress(data);
-                m_io.Write(compressed, 0, compressed.Length);
+                curlast = buffer[buffer.Length - 1];
+                countlast = 1;
+                for (int i = buffer.Length - 2; i >= 0; i--)
+                {
+                    if (buffer[i] == curlast)
+                        countlast++;
+                    else
+                        break;
+                }
+                byte[] ToAdd = m_mymaze3DCompressor.compress(buffer);
+                m_io.Write(ToAdd, 0, ToAdd.Length - 1);
             }
             else
-               if (m_mode == status.decompress)
             {
-                byte[] data = new byte[count];
-                for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
-                byte[] decompressed = m_mymaze3DCompressor.decompress(data);
-                m_io.Write(decompressed, 0, decompressed.Length);
+                byte[] arrayToWrite = new byte[buffer.Length + countlast];
+                for (int i = 0; i < countlast; i++)
+                {
+                    arrayToWrite[i] = curlast;
+                }
+                for (int i = countlast; i < buffer.Length + countlast; i++)
+                {
+                    arrayToWrite[i] = buffer[i - countlast];
+                }
+                byte[] ToAdd = m_mymaze3DCompressor.compress(arrayToWrite);
+                m_io.SetLength(m_io.Length - 1);
+                m_io.Write(ToAdd, 0, ToAdd.Length - 1);
+
+                curlast = buffer[buffer.Length - 1];
+                int countlast = 1;
+                for (int i = buffer.Length - 2; i >= 0; i--)
+                {
+                    if (buffer[i] == curlast)
+                        countlast++;
+                    else
+                        break;
+                }
             }
+
+
+            //byte []b = new byte[m_BufferSize];
+            //int count=0;
+            //if (b[0] == 0)
+            //{
+            //    count++;
+            //}
+            //else
+            //{
+            //    m_mymaze3DCompressor.compress(b);
+            //    m_io.Write(b);
+            //}
+            
+            //for (int i = 0; i < buffer.Length; i++) ;
+            //    byte[] compressed = m_mymaze3DCompressor.compress(data);
+
+
+
+            //if (m_mode == status.compress)
+            //{
+            //    byte[] data = new byte[count];
+            //    for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
+            //    byte[] compressed = m_mymaze3DCompressor.compress(data);
+            //    m_io.Write(compressed, 0, compressed.Length);
+            //}
+            //else
+            //   if (m_mode == status.decompress)
+            //{
+            //    byte[] data = new byte[count];
+            //    for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
+            //    byte[] decompressed = m_mymaze3DCompressor.decompress(data);
+            //    m_io.Write(decompressed, 0, decompressed.Length);
+            //}
+        }
+
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            throw new NotImplementedException();
         }
     }
 }
