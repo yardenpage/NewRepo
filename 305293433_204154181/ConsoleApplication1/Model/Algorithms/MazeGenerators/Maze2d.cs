@@ -22,7 +22,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             m_y = y;
 
             maze = new Cell[x, y];
-            //create a maze with a frame of border and inside walls which can be brake
+            //create a maze with a frame of border and inside walls which can be break
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
@@ -138,13 +138,13 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             {
                 for (int j = 0; j < maze.GetLength(0); j++)
                 {
-                    if (start.x==j && start.y==i && maze[j, i].myvalue == Cell.status.path) //case it is start point
+                    if (start.x == j && start.y == i && maze[j, i].myvalue == Cell.status.path) //case it is start point
                     {
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.Write(" S ");
                         Console.ResetColor();
                     }
-                    else if (end.x ==j && end.y ==i && maze[j, i].myvalue == Cell.status.path) //case it is end point
+                    else if (end.x == j && end.y == i && maze[j, i].myvalue == Cell.status.path) //case it is end point
                     {
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.Write(" E ");
@@ -167,11 +167,29 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                             Console.ResetColor();
                         }
                     }
-     
+
                 }
                 Console.WriteLine();
             }
-
+        }
+        public override List<byte> getPrint()
+        {
+            List<byte> ans = new List<byte>();
+            for (int i = maze.GetLength(1) - 1; i >= 0; i--)
+            {
+                for (int j = 0; j < maze.GetLength(0); j++)
+                {
+                        if (maze[j, i].myvalue == Cell.status.path)
+                        {
+                             ans.Add(0);
+                        }
+                        else
+                        {
+                            ans.Add(1);
+                        }
+                 }
+           }
+            return ans;
         }
     }
 }

@@ -110,13 +110,5 @@ namespace ATP2016Project.Model.Algorithms.Search
             m_openListStates.Remove(popedState.GetState());
             return popedState;
         }
-        /// <summary>
-        /// get the number of state that visited
-        /// </summary>
-        /// <returns> number of states </returns>
-        public override int GetNumberOfGeneratedNodes()
-        {
-            return countOfStates;
-        }
     }
 }

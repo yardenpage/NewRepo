@@ -61,5 +61,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// abstract print function
         /// </summary>
         public abstract void print();
+
+        public abstract List<byte> getPrint();
     }
 }

@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Algorithms\Compression\ICompressor.cs" />
+    <Compile Include="Model\Algorithms\Compression\MyCompressorStream.cs" />
+    <Compile Include="Model\Algorithms\Compression\MyMaze3DCompressor.cs" />
     <Compile Include="Model\Algorithms\MazeGenerators\DFS2dGenerator.cs" />
     <Compile Include="Model\Algorithms\MazeGenerators\MyMaze3dGenerator.cs" />
     <Compile Include="Model\Algorithms\MazeGenerators\IMaze.cs" />

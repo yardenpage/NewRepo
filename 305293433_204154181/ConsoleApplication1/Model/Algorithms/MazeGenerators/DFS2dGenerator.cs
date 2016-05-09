@@ -24,7 +24,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// <returns> a maze </returns>
         public override AMaze generate(ArrayList points)
         {
-            if (points.Count != 2 || (int)points[0] < 1 || (int)points[1] < 1)
+            if (points.Count != 2 || (int)points[0] < 3 || (int)points[1] < 3)
             {
                 Console.WriteLine("illegal input of points.");
                 return new Maze2d(0, 0);

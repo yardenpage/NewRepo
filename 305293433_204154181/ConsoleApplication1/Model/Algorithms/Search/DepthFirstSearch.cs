@@ -74,6 +74,7 @@ namespace ATP2016Project.Model.Algorithms.Search
                 else
                 {
                     stateSuccessors = searchDomain.GetAllSuccessors(state);
+                    stateSuccessors = stateSuccessors.Reverse();
                     foreach (AState successor in stateSuccessors)
                     {
                         if (!IsStateInClosedList(successor))
@@ -108,14 +109,6 @@ namespace ATP2016Project.Model.Algorithms.Search
             AState popedState = m_openList.Pop();
             m_openListStates.Remove(popedState.GetState());
             return popedState;
-        }
-        /// <summary>
-        /// returns number of the visited states
-        /// </summary>
-        /// <returns> number of states </returns>
-        public override int GetNumberOfGeneratedNodes()
-        {
-            return countOfStates;
         }
 
     }

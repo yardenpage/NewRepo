@@ -39,7 +39,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             generate(points);// the function we want to measure
             DateTime clockTimeAfterGenerate = DateTime.Now;//take time after generate
             TimeSpan runningT = clockTimeAfterGenerate - clockTime;//calculate the differance
-            ans = runningT.TotalMilliseconds;//get the time at miliseconds
+            ans = runningT.Milliseconds;//get the time at miliseconds
             runningTime = System.Convert.ToString(ans);//convert the time to int
             runningTime = "Running time (miliseconds): "+ runningTime;
             return runningTime;

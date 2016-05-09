@@ -34,6 +34,42 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             start = maze.start;
             end = maze.end;
         }
+
+        public Maze3d(byte[] b)
+        {
+            maze3d = new Maze2d[b[2]];// declare the number of floors
+            for (int i = 0; i < b[2]; i++)
+            {
+                maze3d[i] = new Maze2d(b[0], b[1]);
+            }
+            start.x = b[3];
+            start.y = b[4];
+            ((Position3d)start).z = b[5];
+            end.x = b[6];
+            end.y = b[7];
+            ((Position3d)end).z = b[8];
+            int count = 9;
+            for (int z = 0; z < b[2]; z++)
+            {
+                for (int y = b[1] - 1; y >= 0; y--)
+                {
+                    for (int x = 0; x < b[0]; x++)
+                    {
+                        if (b[count] == 0) {
+                            maze3d[z].Maze[x, y].myvalue = Cell.status.path;
+                        }
+                        else
+                        {
+                            if(x==0 || x==b[0]-1 || y==0 || y==b[1]-1 || z==0 || z==b[2]-1)
+                                maze3d[z].Maze[x, y].myvalue = Cell.status.border;
+                            else
+                                maze3d[z].Maze[x, y].myvalue = Cell.status.wall;
+                        }
+                        count++;
+                    }
+                }
+            }
+        }
         /// <summary>
         /// property of a maze 3d
         /// </summary>
@@ -58,6 +94,32 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 maze3d[i].print();
                 Console.WriteLine();
             }
+        }
+
+        public override List<byte> getPrint()
+        {
+            List<byte> ans = new List<byte>();
+            for (int i = 0; i < maze3d.Length; i++)
+            {
+                ans.AddRange(maze3d[i].getPrint());
+            }
+            return ans;
+        }
+
+        public byte[] toByteArray()
+        {
+            List<byte> byteMaze = new List<byte>();
+            byteMaze.Add((byte)maze3D[0].Maze.GetLength(0));
+            byteMaze.Add((byte)maze3D[0].Maze.GetLength(1));
+            byteMaze.Add((byte)maze3D.Length);
+            byteMaze.Add((byte)Start.x);
+            byteMaze.Add((byte)Start.y);
+            byteMaze.Add((byte)(((Position3d)Start).z));
+            byteMaze.Add((byte)End.x);
+            byteMaze.Add((byte)End.y);
+            byteMaze.Add((byte)(((Position3d)End).z));
+            byteMaze.AddRange(getPrint());
+            return byteMaze.ToArray();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// </summary>
         private Stopwatch m_stopWatch;
         /// <summary>
-        ///  counter of states
+        ///  counter of the all developed states
         /// </summary>
         protected int countOfStates;
         /// <summary>
@@ -93,10 +93,13 @@ namespace ATP2016Project.Model.Algorithms.Search
             return m_closedList.ContainsKey(state.GetState());
         }
         /// <summary>
-        /// abstarct function that return the number of visited states
+        /// get the number of all developed states
         /// </summary>
-        /// <returns>number of states</returns>
-        public abstract int GetNumberOfGeneratedNodes();
+        /// <returns> number of states </returns>
+        public int GetNumberOfGeneratedNodes()
+        {
+            return countOfStates;
+        }
         /// <summary>
         /// add a state to the OpenList
         /// </summary>
@@ -143,7 +146,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <returns>the time of solving the algorithm</returns>
         public double GetSolvingTimeMiliseconds()
         {
-            return m_stopWatch.ElapsedTicks;
+            return m_stopWatch.Elapsed.TotalMilliseconds;
         }
 
     }
