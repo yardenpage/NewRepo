@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ICommand.cs" />
     <Compile Include="Model\Algorithms\Compression\ICompressor.cs" />
     <Compile Include="Model\Algorithms\Compression\MyCompressorStream.cs" />
     <Compile Include="Model\Algorithms\Compression\MyMaze3DCompressor.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Model\Algorithms\Search\Solution.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\CLI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
