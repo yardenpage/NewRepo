@@ -39,10 +39,6 @@ namespace ATP2016Project.Model.Algorithms.Compression
         private status m_mode;
         private FileStream fileInStream;
 
-        private byte first;
-        private byte curlast;
-        private int countlast=0;
-
         /// <summary>
         /// constructor
         /// </summary>
@@ -56,7 +52,6 @@ namespace ATP2016Project.Model.Algorithms.Compression
             m_bytesReadFromStream = new byte[m_BufferSize];
             m_queue = new Queue<byte>();
             m_mymaze3DCompressor = new MyMaze3DCompressor();
-            countlast = 0;
         }
 
         public MyCompressorStream(FileStream fileInStream)
@@ -129,76 +124,31 @@ namespace ATP2016Project.Model.Algorithms.Compression
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            if (m_mode == status.compress)
+            if (m_mode == NaiveCompressorStream.Compress)
             {
-                // we should read X < Count decompressed bytes from the source stream
-                // and allow the reader to read COUNT comprssed bytes from buffer
-                // starting from OFFSET index
-
-                int r = 0;
-                int pointer = 0;
-                while (m_queue.Count < count && (r = m_io.Read(m_bytesReadFromStream, 0, m_BufferSize)) != 0)
-                {
-                    // our source actually contain R bytes and if R<bufferSize then the rest of bytes are leftovers... 
-                    // let's cut them
-                    if(m_bytesReadFromStream[r]== m_bytesReadFromStream[r - 1]){
-                        int j = pointer + r - 1;
-                        int remove=0;
-                        while ( j >= r){
-                            if (m_bytesReadFromStream[j] == m_bytesReadFromStream[pointer + r])
-                            {
-                                remove++;
-                                j--;
-                            }
-                            else
-                                 break;
-                        }
-                        r = r - remove;
-                    }
-                   
-                    byte[] data = new byte[r];
-                    for (int i = 0; i < r; data[i] = m_bytesReadFromStream[i+pointer], i++) ;
-
-                    byte[] compressed = m_mymaze3DCompressor.compress(data);
-                    // now, we'll put the comprssed data in the queue; it is used as a buffer
-                    foreach (byte b in compressed)
-                    {
-                        m_queue.Enqueue(b);
-                    }
-                    pointer = pointer + r;
-
-                }
-                int bytesCount = Math.Min(m_queue.Count, count);
-
-                for (int i = 0; i < bytesCount; i++)
-                {
-                    buffer[i + offset] = m_queue.Dequeue();
-                }
+                // do it yourself...
                 return -1;
             }
-            else if (m_mode == status.decompress)
+            else if (m_mode == NaiveCompressorStream.Decompress)
             {
-                // we should read X < Count compressed bytes from the source stream
+                // we should read X < Count compressed bytes form the source stream
                 // and allow the reader to read COUNT decomprssed bytes from buffer
                 // starting from OFFSET index
 
                 int r = 0;
-                int pointer = 0;
-                while (m_queue.Count < count && (r = m_io.Read(m_bytesReadFromStream, pointer, m_BufferSize)) != 0)
+                while (m_queue.Count < count && (r = m_io.Read(m_bytesReadFromStream, 0, m_BufferSize)) != 0)
                 {
                     // our source actually contain R bytes and if R<bufferSize then the rest of bytes are leftovers... 
                     // let's cut them
-                    
                     byte[] data = new byte[r];
-                    for (int i = 0; i < r; data[i] = m_bytesReadFromStream[i+pointer], i++) ;
+                    for (int i = 0; i < r; data[i] = m_bytesReadFromStream[i], i++) ;
 
-                    byte[] decompressed = m_mymaze3DCompressor.decompress(data);
+                    byte[] decompressed = m_naiveCompressor.decompress(data);
                     // now, we'll put the decomprssed data in the queue; it is used as a buffer
                     foreach (byte b in decompressed)
                     {
                         m_queue.Enqueue(b);
                     }
-                    pointer = pointer + r;
 
                 }
                 int bytesCount = Math.Min(m_queue.Count, count);
@@ -222,48 +172,21 @@ namespace ATP2016Project.Model.Algorithms.Compression
             throw new NotImplementedException();
         }
 
-        public void Write(byte[] buffer)
+        public override void Write(byte[] buffer, int offset, int count)
         {
-            //assume that the input is decompress
-            if (m_io.Length == 0)
+            if (m_mode == NaiveCompressorStream.Compress)
             {
-                curlast = buffer[buffer.Length - 1];
-                countlast = 1;
-                for (int i = buffer.Length - 2; i >= 0; i--)
-                {
-                    if (buffer[i] == curlast)
-                        countlast++;
-                    else
-                        break;
-                }
-                byte[] ToAdd = m_mymaze3DCompressor.compress(buffer);
-                m_io.Write(ToAdd, 0, ToAdd.Length - 1);
+                byte[] data = new byte[count];
+                for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
+                byte[] compressed = m_naiveCompressor.compress(data);
+                m_io.Write(compressed, 0, compressed.Length);
             }
             else
+                 if (m_mode == NaiveCompressorStream.Decompress)
             {
-                byte[] arrayToWrite = new byte[buffer.Length + countlast];
-                for (int i = 0; i < countlast; i++)
-                {
-                    arrayToWrite[i] = curlast;
-                }
-                for (int i = countlast; i < buffer.Length + countlast; i++)
-                {
-                    arrayToWrite[i] = buffer[i - countlast];
-                }
-                byte[] ToAdd = m_mymaze3DCompressor.compress(arrayToWrite);
-                m_io.SetLength(m_io.Length - 1);
-                m_io.Write(ToAdd, 0, ToAdd.Length - 1);
-
-                curlast = buffer[buffer.Length - 1];
-                int countlast = 1;
-                for (int i = buffer.Length - 2; i >= 0; i--)
-                {
-                    if (buffer[i] == curlast)
-                        countlast++;
-                    else
-                        break;
-                }
+                // do it yourself....
             }
+        }
 
 
             //byte []b = new byte[m_BufferSize];
@@ -300,9 +223,5 @@ namespace ATP2016Project.Model.Algorithms.Compression
             //}
         }
 
-        public override void Write(byte[] buffer, int offset, int count)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

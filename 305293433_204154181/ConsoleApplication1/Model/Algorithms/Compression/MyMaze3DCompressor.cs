@@ -20,6 +20,8 @@ namespace ATP2016Project.Model.Algorithms.Compression
             while (i < data.Length)
             {
                 byte b = data[i]; // current data
+                compressed.Add(b); // put it in
+                i++;
                 // how many times it appears continuously?
                 byte count = 0;
                 while (i < data.Length && data[i] == b && count < byte.MaxValue) { count++; i++; }
@@ -38,16 +40,16 @@ namespace ATP2016Project.Model.Algorithms.Compression
         {
             List<byte> decompressed = new List<byte>();
             int i = 0;
-            byte value =  data[0];
             while (i < data.Length)
             {
                 byte b = data[i];
-                for(int j=0; j<data[i]; j++)
+                decompressed.Add(b);
+                i++;
+                for (int j=0; j<data[i]; j++)
                 {
-                    decompressed.Add(value);
+                    decompressed.Add(b);
                 }
                 i++;
-                value=(value==0) ? (byte)1 : (byte)0;
             }
             return decompressed.ToArray();
         }
