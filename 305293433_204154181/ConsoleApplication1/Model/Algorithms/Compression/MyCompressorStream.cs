@@ -12,7 +12,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
         /// <summary>
         /// enum that repesents if the mode is compress or decompress
         /// </summary>
-        public enum status { compress=0, decompress=1};
+        public enum status { compress = 0, decompress = 1 };
         /// <summary>
         /// the size of the bytes array
         /// </summary>
@@ -37,7 +37,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
         /// the current mode
         /// </summary>
         private status m_mode;
-        private FileStream fileInStream;
+        //private FileStream fileInStream;
 
         /// <summary>
         /// constructor
@@ -76,7 +76,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
         {
             get
             {
-                 return m_io.CanRead; 
+                return m_io.CanRead;
             }
         }
 
@@ -140,6 +140,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
                     {
                         m_queue.Enqueue(b);
                     }
+                    Array.Clear(m_bytesReadFromStream, 0, m_bytesReadFromStream.Length);
 
                 }
                 int bytesCount = Math.Min(m_queue.Count, count);
@@ -170,7 +171,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
                     {
                         m_queue.Enqueue(b);
                     }
-
+                    Array.Clear(m_bytesReadFromStream, 0, m_bytesReadFromStream.Length);
                 }
                 int bytesCount = Math.Min(m_queue.Count, count);
 
@@ -196,56 +197,78 @@ namespace ATP2016Project.Model.Algorithms.Compression
         public override void Write(byte[] buffer, int offset, int count)
         {
             List<byte> list = new List<byte>();
+            int stopPoint = offset;
+            int range = count;
+            Array.Clear(m_bytesReadFromStream, 0, m_bytesReadFromStream.Length);
             if (m_mode == MyCompressorStream.status.compress)
             {
-                byte[] data = new byte[count];
-                for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
-                byte[] compressed = m_mymaze3DCompressor.compress(data);
-                m_io.Write(compressed, 0, compressed.Length);
+                while (range > 0)
+                {
+                    if (range <= m_BufferSize)
+                    {
+                        for (int j = 0; j < range; j++)
+                        {
+                            m_bytesReadFromStream[j] = buffer[stopPoint];
+                            stopPoint++;
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < m_BufferSize; j++)
+                        {
+                            m_bytesReadFromStream[j] = buffer[stopPoint];
+                            stopPoint++;
+                        }
+                    }
+                    byte[] compressed = m_mymaze3DCompressor.compress(m_bytesReadFromStream);
+                    // now, we'll put the decomprssed data in the queue; it is used as a buffer
+                    foreach (byte b in compressed)
+                    {
+                        m_queue.Enqueue(b);
+                    }
+                    range = count - stopPoint + offset;
+                    Array.Clear(m_bytesReadFromStream, 0, m_bytesReadFromStream.Length);
+                }
             }
-            else
-                 if (m_mode == MyCompressorStream.status.decompress)
+
+            if (m_mode == MyCompressorStream.status.decompress)
             {
-                byte[] data = new byte[count];
-                for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
-                byte[] decompressed = m_mymaze3DCompressor.decompress(data);
-                m_io.Write(decompressed, 0, decompressed.Length);
-
+                while (range > 0)
+                {
+                    if (range <= m_BufferSize)
+                    {
+                        for (int j = 0; j < range; j++)
+                        {
+                            m_bytesReadFromStream[j] = buffer[stopPoint];
+                            stopPoint++;
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < m_BufferSize; j++)
+                        {
+                            m_bytesReadFromStream[j] = buffer[stopPoint];
+                            stopPoint++;
+                        }
+                    }
+                    byte[] decompressed = m_mymaze3DCompressor.decompress(m_bytesReadFromStream);
+                    // now, we'll put the decomprssed data in the queue; it is used as a buffer
+                    foreach (byte b in decompressed)
+                    {
+                        m_queue.Enqueue(b);
+                    }
+                    range = count - stopPoint + offset;
+                    Array.Clear(m_bytesReadFromStream, 0, m_bytesReadFromStream.Length);
+                }
             }
+
+            byte[] a = new byte[m_queue.Count];
+            for (int i = 0; i < m_queue.Count; i++)
+            {
+                a[i] = m_queue.Dequeue();
+            }
+
+            m_io.Write(a, 0, a.Length);
         }
-
-
-        //byte []b = new byte[m_BufferSize];
-        //int count=0;
-        //if (b[0] == 0)
-        //{
-        //    count++;
-        //}
-        //else
-        //{
-        //    m_mymaze3DCompressor.compress(b);
-        //    m_io.Write(b);
-        //}
-
-        //for (int i = 0; i < buffer.Length; i++) ;
-        //    byte[] compressed = m_mymaze3DCompressor.compress(data);
-
-
-
-        //if (m_mode == status.compress)
-        //{
-        //    byte[] data = new byte[count];
-        //    for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
-        //    byte[] compressed = m_mymaze3DCompressor.compress(data);
-        //    m_io.Write(compressed, 0, compressed.Length);
-        //}
-        //else
-        //   if (m_mode == status.decompress)
-        //{
-        //    byte[] data = new byte[count];
-        //    for (int i = 0; i < count; data[i] = buffer[i + offset], i++) ;
-        //    byte[] decompressed = m_mymaze3DCompressor.decompress(data);
-        //    m_io.Write(decompressed, 0, decompressed.Length);
-        //}
     }
 }

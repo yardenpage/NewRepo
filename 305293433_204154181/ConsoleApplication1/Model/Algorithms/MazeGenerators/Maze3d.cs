@@ -42,12 +42,17 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             {
                 maze3d[i] = new Maze2d(b[0], b[1]);
             }
-            start.x = b[3];
-            start.y = b[4];
-            ((Position3d)start).z = b[5];
-            end.x = b[6];
-            end.y = b[7];
-            ((Position3d)end).z = b[8];
+            Position startMaze = new Position3d(b[3], b[4], b[5]);
+            Start = startMaze;
+            Position endMaze = new Position3d(b[6], b[7], b[8]);
+            End = endMaze;
+
+            //Start.x = b[3];
+            //Start.y = b[4];
+            //((Position3d)Start).z = b[5];
+            //End.x = b[6];
+            //End.y = b[7];
+            //((Position3d)End).z = b[8];
             int count = 9;
             for (int z = 0; z < b[2]; z++)
             {

@@ -25,6 +25,7 @@ namespace ATP2016Project
             //testMaze3dGenerator(mB);
             //testSearchAlgorithms();
             testCompress();
+            Console.ReadLine();
 
         }
 
@@ -208,7 +209,7 @@ namespace ATP2016Project
                          // save the maze to a file – compressed
             using (FileStream fileOutStream = new FileStream("1.maze", FileMode.Create))
             {
-                using (Stream outStream = new MyCompressorStream(fileOutStream, MyCompressorStream.status.decompress))
+                using (Stream outStream = new MyCompressorStream(fileOutStream, MyCompressorStream.status.compress))
                 {
                     ((MyCompressorStream)outStream).Write(maze.toByteArray(),0,255);
                     outStream.Flush();
@@ -217,7 +218,7 @@ namespace ATP2016Project
             byte[] mazeBytes;
             using (FileStream fileInStream = new FileStream("1.maze", FileMode.Open))
             {
-                using (Stream inStream = new MyCompressorStream(fileInStream, MyCompressorStream.status.compress))
+                using (Stream inStream = new MyCompressorStream(fileInStream, MyCompressorStream.status.decompress))
                 {
                     mazeBytes = new byte[maze.toByteArray().Length];
                     inStream.Read(mazeBytes,0,mazeBytes.Length);
@@ -225,6 +226,7 @@ namespace ATP2016Project
             }
             Maze3d loadedMaze = new Maze3d(mazeBytes);
             Console.WriteLine(loadedMaze.Equals(maze));
+
         }
 
     }
