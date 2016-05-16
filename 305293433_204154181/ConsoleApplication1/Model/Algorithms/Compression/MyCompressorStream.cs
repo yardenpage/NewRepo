@@ -124,6 +124,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
 
         public override int Read(byte[] buffer, int offset, int count)
         {
+            Array.Clear(m_bytesReadFromStream, 0, m_bytesReadFromStream.Length);
             if (m_mode == status.compress)
             {
                 int r = 0;
@@ -202,15 +203,18 @@ namespace ATP2016Project.Model.Algorithms.Compression
             Array.Clear(m_bytesReadFromStream, 0, m_bytesReadFromStream.Length);
             if (m_mode == MyCompressorStream.status.compress)
             {
+                byte[] compressed;
                 while (range > 0)
                 {
                     if (range <= m_BufferSize)
                     {
+                        byte[] temp = new byte[range];
                         for (int j = 0; j < range; j++)
                         {
-                            m_bytesReadFromStream[j] = buffer[stopPoint];
-                            stopPoint++;
+                            temp[j] = buffer[stopPoint];
+                            stopPoint++; 
                         }
+                        compressed = m_mymaze3DCompressor.compress(temp);
                     }
                     else
                     {
@@ -219,8 +223,9 @@ namespace ATP2016Project.Model.Algorithms.Compression
                             m_bytesReadFromStream[j] = buffer[stopPoint];
                             stopPoint++;
                         }
+                        compressed = m_mymaze3DCompressor.compress(m_bytesReadFromStream);
                     }
-                    byte[] compressed = m_mymaze3DCompressor.compress(m_bytesReadFromStream);
+                   
                     // now, we'll put the decomprssed data in the queue; it is used as a buffer
                     foreach (byte b in compressed)
                     {
@@ -231,17 +236,20 @@ namespace ATP2016Project.Model.Algorithms.Compression
                 }
             }
 
-            if (m_mode == MyCompressorStream.status.decompress)
+            else if (m_mode == MyCompressorStream.status.decompress)
             {
+                byte[] decompressed;
                 while (range > 0)
                 {
                     if (range <= m_BufferSize)
                     {
+                        byte[] temp = new byte[range];
                         for (int j = 0; j < range; j++)
                         {
-                            m_bytesReadFromStream[j] = buffer[stopPoint];
+                            temp[j] = buffer[stopPoint];
                             stopPoint++;
                         }
+                        decompressed = m_mymaze3DCompressor.decompress(temp);
                     }
                     else
                     {
@@ -250,8 +258,8 @@ namespace ATP2016Project.Model.Algorithms.Compression
                             m_bytesReadFromStream[j] = buffer[stopPoint];
                             stopPoint++;
                         }
+                        decompressed = m_mymaze3DCompressor.decompress(m_bytesReadFromStream);
                     }
-                    byte[] decompressed = m_mymaze3DCompressor.decompress(m_bytesReadFromStream);
                     // now, we'll put the decomprssed data in the queue; it is used as a buffer
                     foreach (byte b in decompressed)
                     {
@@ -263,7 +271,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
             }
 
             byte[] a = new byte[m_queue.Count];
-            for (int i = 0; i < m_queue.Count; i++)
+            for (int i = 0; i < a.Length; i++)
             {
                 a[i] = m_queue.Dequeue();
             }

@@ -206,12 +206,13 @@ namespace ATP2016Project
             testP.Add(z);
             //Console.WriteLine(mg.measureAlgorithmTime(testP));
             maze = (Maze3d)generator.generate(testP);
-                         // save the maze to a file – compressed
+            // save the maze to a file – compressed
+            byte[] byteMaze;
             using (FileStream fileOutStream = new FileStream("1.maze", FileMode.Create))
             {
                 using (Stream outStream = new MyCompressorStream(fileOutStream, MyCompressorStream.status.compress))
                 {
-                    byte[] byteMaze = maze.toByteArray();
+                    byteMaze = maze.toByteArray();
                     ((MyCompressorStream)outStream).Write(byteMaze, 0, byteMaze.Length);
                     outStream.Flush();
                 }

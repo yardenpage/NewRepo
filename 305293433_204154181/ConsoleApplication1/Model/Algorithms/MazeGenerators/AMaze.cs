@@ -62,6 +62,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// </summary>
         public abstract void print();
 
+        public abstract bool Equals(AMaze maze);
         public abstract List<byte> getPrint();
     }
 }

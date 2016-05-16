@@ -45,14 +45,8 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             Position startMaze = new Position3d(b[3], b[4], b[5]);
             Start = startMaze;
             Position endMaze = new Position3d(b[6], b[7], b[8]);
-            End = endMaze;
+            End =endMaze;
 
-            //Start.x = b[3];
-            //Start.y = b[4];
-            //((Position3d)Start).z = b[5];
-            //End.x = b[6];
-            //End.y = b[7];
-            //((Position3d)End).z = b[8];
             int count = 9;
             for (int z = 0; z < b[2]; z++)
             {
@@ -92,6 +86,22 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// <summary>
         /// print a maze 3d
         /// </summary>
+        /// 
+        public override bool Equals(AMaze other) //check if two mazes are the same
+        {
+            Maze3d Other = (Maze3d)other;
+            if (Other.maze3D[0].x != maze3d[0].x || Other.maze3D[0].y != maze3d[0].y || Other.maze3D.Length != maze3d.Length)
+                return false;
+            for (int k = 0; k < Other.maze3d.Length; k++)
+            {
+                    if (!(Other.maze3D[k].Equals(maze3d[k])))
+                    {
+                        return false;
+                    }
+            }
+            return true;
+        }
+
         public override void print()
         {
             for (int i = 0; i < maze3d.Length; i++) //print each 2d maze

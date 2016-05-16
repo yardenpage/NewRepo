@@ -114,14 +114,14 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// </summary>
         /// <param name="other">the other maze to compare</param>
         /// <returns>true or false</returns>
-        public bool maze_equals(Maze2d other) //check if two mazes are the same
+        public override bool Equals(AMaze other) //check if two mazes are the same
         {
-
-            for (int i = 0; i < other.maze.GetLength(0); i++)
+            Maze2d Other = (Maze2d)other;
+            for (int i = 0; i < Other.maze.GetLength(0); i++)
             {
-                for (int j = 0; j < other.maze.GetLength(1); j++)
+                for (int j = 0; j < Other.maze.GetLength(1); j++)
                 {
-                    if (other.maze[i, j].myvalue != this.maze[i, j].myvalue)
+                    if (Other.maze[i, j].myvalue != this.maze[i, j].myvalue)
                     {
                         return false;
                     }
