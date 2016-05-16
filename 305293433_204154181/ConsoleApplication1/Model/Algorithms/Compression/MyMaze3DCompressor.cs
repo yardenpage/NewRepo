@@ -45,7 +45,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
                 byte b = data[i];
                 decompressed.Add(b);
                 i++;
-                for (int j=0; j<data[i]; j++)
+                for (int j=0; i<data.Length && j<data[i]; j++)
                 {
                     decompressed.Add(b);
                 }

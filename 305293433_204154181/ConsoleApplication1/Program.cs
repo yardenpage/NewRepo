@@ -208,7 +208,7 @@ namespace ATP2016Project
                          // save the maze to a file – compressed
             using (FileStream fileOutStream = new FileStream("1.maze", FileMode.Create))
             {
-                using (Stream outStream = new MyCompressorStream(fileOutStream))
+                using (Stream outStream = new MyCompressorStream(fileOutStream, MyCompressorStream.status.decompress))
                 {
                     ((MyCompressorStream)outStream).Write(maze.toByteArray(),0,255);
                     outStream.Flush();
@@ -217,7 +217,7 @@ namespace ATP2016Project
             byte[] mazeBytes;
             using (FileStream fileInStream = new FileStream("1.maze", FileMode.Open))
             {
-                using (Stream inStream = new MyCompressorStream(fileInStream))
+                using (Stream inStream = new MyCompressorStream(fileInStream, MyCompressorStream.status.compress))
                 {
                     mazeBytes = new byte[maze.toByteArray().Length];
                     inStream.Read(mazeBytes,0,mazeBytes.Length);

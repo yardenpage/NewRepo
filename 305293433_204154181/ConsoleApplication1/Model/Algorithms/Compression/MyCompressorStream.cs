@@ -54,10 +54,10 @@ namespace ATP2016Project.Model.Algorithms.Compression
             m_mymaze3DCompressor = new MyMaze3DCompressor();
         }
 
-        public MyCompressorStream(FileStream fileInStream)
-        {
-            this.fileInStream = fileInStream;
-        }
+        //public MyCompressorStream(FileStream fileInStream)
+        //{
+        //    this.fileInStream = fileInStream;
+        //}
 
         /// <summary>
         /// property of the status mode
@@ -100,7 +100,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
         {
             get
             {
-                throw new NotImplementedException();
+                return m_io.Length;
             }
         }
 
@@ -108,12 +108,12 @@ namespace ATP2016Project.Model.Algorithms.Compression
         {
             get
             {
-                throw new NotImplementedException();
+                return m_io.Position;
             }
 
             set
             {
-                throw new NotImplementedException();
+                m_io.Position = value;
             }
         }
 
@@ -185,12 +185,12 @@ namespace ATP2016Project.Model.Algorithms.Compression
 
         public override long Seek(long offset, SeekOrigin origin)
         {
-            throw new NotImplementedException();
+            return m_io.Seek(offset, origin);
         }
 
         public override void SetLength(long value)
         {
-            throw new NotImplementedException();
+            m_io.SetLength(value);
         }
 
         public override void Write(byte[] buffer, int offset, int count)
@@ -247,7 +247,5 @@ namespace ATP2016Project.Model.Algorithms.Compression
         //    byte[] decompressed = m_mymaze3DCompressor.decompress(data);
         //    m_io.Write(decompressed, 0, decompressed.Length);
         //}
-    }
-
     }
 }
