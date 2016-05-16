@@ -211,7 +211,8 @@ namespace ATP2016Project
             {
                 using (Stream outStream = new MyCompressorStream(fileOutStream, MyCompressorStream.status.compress))
                 {
-                    ((MyCompressorStream)outStream).Write(maze.toByteArray(),0,255);
+                    byte[] byteMaze = maze.toByteArray();
+                    ((MyCompressorStream)outStream).Write(byteMaze, 0, byteMaze.Length);
                     outStream.Flush();
                 }
             }
