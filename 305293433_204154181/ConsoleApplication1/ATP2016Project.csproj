@@ -52,7 +52,6 @@
     <Compile Include="Controller\MazeSizeCommand.cs" />
     <Compile Include="Controller\SaveMazeCommand.cs" />
     <Compile Include="Controller\SolveMazeCommand.cs" />
-    <Compile Include="IModle.cs" />
     <Compile Include="Model\AModel.cs" />
     <Compile Include="Controller\DirCommand.cs" />
     <Compile Include="Controller\DisplayCommand.cs" />

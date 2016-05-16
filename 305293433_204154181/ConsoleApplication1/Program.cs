@@ -227,7 +227,7 @@ namespace ATP2016Project
                 using (Stream inStream = new MyCompressorStream(fileInStream, MyCompressorStream.status.decompress))
                 {
                     mazeBytes = new byte[maze.toByteArray().Length];
-                    inStream.Read(mazeBytes,0,mazeBytes.Length);
+                    inStream.Read(mazeBytes, 0, mazeBytes.Length);
                 }
             }
             Maze3d loadedMaze = new Maze3d(mazeBytes);
@@ -243,6 +243,35 @@ namespace ATP2016Project
             IView view = new CLI(controller);
             controller.SetView(view);
             view.Start();
+
+            Position startMaze = new Position3d(b[3], b[4], b[5]);
+            Start = startMaze;
+            Position endMaze = new Position3d(b[6], b[7], b[8]);
+            End = endMaze;
+            7:22PM
+
+    /*using (Stream stdin = Console.OpenStandardInput())
+            using (Stream stdout = Console.OpenStandardOutput())
+            {
+                byte[] buffer = new byte[2048];
+                int bytes;
+                // bytes = stdin.Read(buffer, 0, buffer.Length);
+                string ans = "";
+                // while (!ans.Equals("exit"))
+                // {
+                while ((bytes = stdin.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    stdout.Write(buffer, 0, bytes);
+                    Console.WriteLine("before ans");
+                    ans = System.Text.Encoding.UTF8.GetString(buffer, 0, bytes - 2);
+                    Console.WriteLine(ans);
+                    Console.WriteLine("after ans");
+                    if (ans.Equals("exit"))
+                        Console.WriteLine("this is the end");
+                    //   ans = buffer.ToString();
+
+                }
+            }*/
         }
 
     }

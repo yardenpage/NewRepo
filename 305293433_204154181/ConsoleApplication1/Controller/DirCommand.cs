@@ -17,6 +17,8 @@ namespace ATP2016Project.Controller
         }
         public override void DoCommand(params string[] parameters)
         {
+            m_model.GetDir();
+            m_view.Output();
             throw new NotImplementedException();
         }
 
