@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class MazeSize: ACommand
+    public class MazeSizeCommand : ACommand
     {
-        public MazeSize(IModel imodel, IView iview) :base(imodel, iview)
+        public MazeSizeCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class DisplaySolution: ACommand
+    public class FileSizeCommand : ACommand
     {
-        public DisplaySolution(IModel imodel, IView iview) :base(imodel, iview)
+        public FileSizeCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

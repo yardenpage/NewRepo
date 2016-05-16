@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class Generate3dMaze: ACommand
+    public class Generate3dMazeCommand : ACommand
     {
-        public Generate3dMaze(IModel imodel, IView iview) :base(imodel, iview)
+        public Generate3dMazeCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

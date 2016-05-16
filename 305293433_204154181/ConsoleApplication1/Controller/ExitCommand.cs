@@ -1,5 +1,4 @@
-﻿using ATP2016Project.Controller;
-using ATP2016Project.Model;
+﻿using ATP2016Project.Model;
 using ATP2016Project.View;
 using System;
 using System.Collections.Generic;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class DisplayCrossSectionBy: ACommand
+    public class ExitCommand : ACommand
     {
-        public DisplayCrossSectionBy(IModel imodel, IView iview) :base(imodel, iview)
+        public ExitCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

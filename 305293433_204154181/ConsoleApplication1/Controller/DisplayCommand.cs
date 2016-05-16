@@ -1,6 +1,5 @@
 ﻿using ATP2016Project.Model;
 using ATP2016Project.View;
-using ATP2016Project.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class Dir : ACommand
+    public class DisplayCommand : ACommand
     {
-        public Dir(IModel imodel, IView iview) :base(imodel, iview)
+        public DisplayCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class Display: ACommand
+    public class SaveMazeCommand : ACommand
     {
-        public Display(IModel imodel, IView iview) :base(imodel, iview)
+        public SaveMazeCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

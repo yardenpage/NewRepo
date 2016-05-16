@@ -1,5 +1,6 @@
 ﻿using ATP2016Project.Model;
 using ATP2016Project.View;
+using ATP2016Project.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class SolveMaze: ACommand
+    public class DirCommand : ACommand
     {
-        public SolveMaze(IModel imodel, IView iview) :base(imodel, iview)
+        public DirCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

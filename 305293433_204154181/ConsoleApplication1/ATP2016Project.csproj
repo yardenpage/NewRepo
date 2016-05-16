@@ -44,18 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ACommand.cs" />
-    <Compile Include="Controller\DisplayCrossSectionBy.cs" />
-    <Compile Include="Controller\DisplaySolution.cs" />
-    <Compile Include="Controller\Exit.cs" />
-    <Compile Include="Controller\FileSize.cs" />
-    <Compile Include="Controller\LoadMaze.cs" />
-    <Compile Include="Controller\MazeSize.cs" />
-    <Compile Include="Controller\SaveMaze.cs" />
-    <Compile Include="Controller\SolveMaze.cs" />
+    <Compile Include="Controller\DisplayCrossSectionByCommand.cs" />
+    <Compile Include="Controller\DisplaySolutionCommand.cs" />
+    <Compile Include="Controller\ExitCommand.cs" />
+    <Compile Include="Controller\FileSizeCommand.cs" />
+    <Compile Include="Controller\LoadMazeCommand.cs" />
+    <Compile Include="Controller\MazeSizeCommand.cs" />
+    <Compile Include="Controller\SaveMazeCommand.cs" />
+    <Compile Include="Controller\SolveMazeCommand.cs" />
+    <Compile Include="IModle.cs" />
     <Compile Include="Model\AModel.cs" />
-    <Compile Include="Controller\Dir.cs" />
-    <Compile Include="Controller\Display.cs" />
-    <Compile Include="Controller\Generate3dMaze.cs" />
+    <Compile Include="Controller\DirCommand.cs" />
+    <Compile Include="Controller\DisplayCommand.cs" />
+    <Compile Include="Controller\Generate3dMazeCommand.cs" />
     <Compile Include="Controller\ICommand.cs" />
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Controller\MyController.cs" />

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class Exit: ACommand
+    public class SolveMazeCommand : ACommand
     {
-        public Exit(IModel imodel, IView iview) :base(imodel, iview)
+        public SolveMazeCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

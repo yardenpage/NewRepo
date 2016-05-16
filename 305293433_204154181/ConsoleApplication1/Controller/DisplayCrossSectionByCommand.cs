@@ -1,4 +1,5 @@
-﻿using ATP2016Project.Model;
+﻿using ATP2016Project.Controller;
+using ATP2016Project.Model;
 using ATP2016Project.View;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class FileSize: ACommand
+    public class DisplayCrossSectionByCommand : ACommand
     {
-        public FileSize(IModel imodel, IView iview) :base(imodel, iview)
+        public DisplayCrossSectionByCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

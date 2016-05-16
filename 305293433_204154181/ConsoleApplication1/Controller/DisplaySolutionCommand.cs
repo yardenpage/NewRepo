@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
-    public class LoadMaze: ACommand
+    public class DisplaySolutionCommand : ACommand
     {
-        public LoadMaze(IModel imodel, IView iview) :base(imodel, iview)
+        public DisplaySolutionCommand(IModel imodel, IView iview) :base(imodel, iview)
         {
 
         }

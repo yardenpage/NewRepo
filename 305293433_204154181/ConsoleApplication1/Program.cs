@@ -1,6 +1,9 @@
-﻿using ATP2016Project.Model.Algorithms.Compression;
+﻿using ATP2016Project.Controller;
+using ATP2016Project.Model;
+using ATP2016Project.Model.Algorithms.Compression;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
 using ATP2016Project.Model.Algorithms.Search;
+using ATP2016Project.View;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +28,7 @@ namespace ATP2016Project
             //testMaze3dGenerator(mB);
             //testSearchAlgorithms();
             testCompress();
+            testController();
             Console.ReadLine();
 
         }
@@ -229,6 +233,16 @@ namespace ATP2016Project
             Maze3d loadedMaze = new Maze3d(mazeBytes);
             Console.WriteLine(loadedMaze.Equals(maze));
 
+        }
+
+        private static void testController()
+        {
+            IController controller = new MyController();
+            IModle model = new MyModel(controller);
+            controller.SetModel(model);
+            IView view = new CLI(controller);
+            controller.SetView(view);
+            view.Start();
         }
 
     }
