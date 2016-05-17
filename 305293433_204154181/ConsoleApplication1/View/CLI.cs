@@ -56,14 +56,6 @@ namespace ATP2016Project.View
         {
             m_output = output;
         }
-        /// <summary>
-        /// set commands
-        /// </summary>
-        /// <param name="commands"></param>
-        public void SetCommands(Dictionary<string, ACommand> commands)
-        {
-            m_commands = commands;
-        }
 
         /// <summary>
         /// start the runnimg
