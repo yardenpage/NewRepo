@@ -49,3 +49,6 @@ C:\Users\Dell\Source\Repos\pr2\305293433_204154181\ConsoleApplication1\obj\Debug
 C:\Users\Dell\Source\Repos\pr2\305293433_204154181\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
 C:\Users\Dell\Source\Repos\pr2\305293433_204154181\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
 C:\Users\Dell\Source\Repos\pr2\305293433_204154181\ConsoleApplication1\obj\Debug\ATP2016Project.csprojResolveAssemblyReference.cache
+C:\Users\TAL\Source\Repos\NewRepo12\305293433_204154181\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\TAL\Source\Repos\NewRepo12\305293433_204154181\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\TAL\Source\Repos\NewRepo12\305293433_204154181\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

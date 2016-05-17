@@ -10,15 +10,24 @@ using ATP2016Project.Model.Algorithms.MazeGenerators;
 using System.Collections;
 
 namespace ATP2016Project.Controller
-{
+{/// <summary>
+/// this class inherit ACommand- commnd to generate 3dmaze
+/// </summary>
     public class Generate3dMazeCommand : ACommand
     {
-
+        /// <summary>
+        /// constructor of Generate3dMazeCommand
+        /// </summary>
+        /// <param name="imodel"></param>
+        /// <param name="iview"></param>
         public Generate3dMazeCommand(IModel imodel, IView iview) : base(imodel, iview)
         {
 
         }
-
+        /// <summary>
+        /// function that generate 3dmaze
+        /// </summary>
+        /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
             int[] a = new int[parameters.Length - 1];
@@ -31,10 +40,13 @@ namespace ATP2016Project.Controller
             m_view.Output(m_model.GetGenerate3dMaze(parameters[0], a));
         }
 
-
+        /// <summary>
+        /// get the name
+        /// </summary>
+        /// <returns></returns>
         public override string GetName()
         {
-            throw new NotImplementedException();
+            return "generate3dmaze";
         }
     }
 }

@@ -8,22 +8,35 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
-{
+{/// <summary>
+ /// this class inherit ACommand- commnd to display a maze in the given name
+ /// </summary>
     public class DisplayCommand : ACommand
-    {
-        public DisplayCommand(IModel imodel, IView iview) :base(imodel, iview)
+    {/// <summary>
+     /// cinstructor of DisplayCommand
+     /// </summary>
+     /// <param name="imodel"></param>
+     /// <param name="iview"></param>
+        public DisplayCommand(IModel imodel, IView iview) : base(imodel, iview)
         {
 
         }
+        /// <summary>
+        /// function to display a maze in the given name
+        /// </summary>
+        /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
-            AMaze maze = m_model.GetDisplay(parameters[0]);
-            m_view.DisplayMaze(maze);
+           m_model.GetDisplay(parameters[1]);
+            
         }
-
+        /// <summary>
+        /// get the name
+        /// </summary>
+        /// <returns></returns>
         public override string GetName()
         {
-            throw new NotImplementedException();
+            return "display";
         }
     }
 }
