@@ -1,10 +1,9 @@
 ﻿using ATP2016Project.Controller;
+using ATP2016Project.Model.Algorithms.MazeGenerators;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ATP2016Project.View
 {
@@ -29,53 +28,95 @@ namespace ATP2016Project.View
             {
                 if (!m_commands.ContainsKey(m_input.ToString()))
                 {
-                    ICommand c;
-                    m_commands.Add(m_input.ToString(), c);
+                    //ICommand c = new ACommand();
+                    //m_commands.Add(m_input.ToString(), c);
                 }
             }
         }
+
+        public void SetInput(Stream input)
+        {
+            m_input = input;
+        }
+
+        public void SetOutput(Stream output)
+        {
+            m_output = output;
+        }
+
+        public void SetCommands(Dictionary<string, ICommand> commands)
+        {
+            m_commands = commands;
+        }
+
+        
 
         public void Start()
         {
             Console.WriteLine("Command started!\n");
             PrintInstructions();
             string userCommand;
+            byte[] array;
+
             while (true)
             {
-                Console.Write(">>");
-                userCommand = Console.ReadLine();
+                array = Encoding.UTF8.GetBytes(">>");
+                m_output.Write(array, 0, 2);
+                StreamReader reader = new StreamReader(m_input);
+                userCommand = reader.ReadLine().Trim();
                 if (userCommand == "exit")
                 {
                     break;
                 }
-
-                byte[] buffer = new byte[2048];
-                int bytes;
-                Console.WriteLine("Insert your command: \n");
-                bytes = m_input.Read(buffer, 0, buffer.Length);
-                if (m_commands.ContainsKey(m_input.ToString()))
-                {
-                    m_commands[m_input.ToString()].DoCommand();
-                }
                 else
                 {
-                    Output("Unrecognized command!");
-                   
+                    try
+                    {
+                        if (m_commands.ContainsKey(userCommand))
+                        {
+                            m_commands[userCommand].DoCommand();
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Output("Unrecognized command!");
+                    }
                 }
             }
+            //    stdout.Write(buffer, 0, bytes);
+            //    Console.WriteLine("before ans");
+            //    ans = System.Text.Encoding.UTF8.GetString(buffer, 0, bytes - 2);
+            //    Console.WriteLine(ans);
+            //    Console.WriteLine("after ans");
+            //    if (ans.Equals("exit"))
+            //        Console.WriteLine("this is the end");
+            //    //   ans = buffer.ToString();
+            //}
         }
 
         private static void PrintInstructions()
         {
-            Console.WriteLine("Enter calculation in 'X [operator] Y' format, ror example '3 + 5' or '6 * 8'.");
-            Console.WriteLine("Press 'exit' to finish.");
+            Console.WriteLine("Command Line Interface (CLI) started!");
             Console.WriteLine("");
+            Console.WriteLine("Enter the name of the command to execute.");
+            //Console.WriteLine(String.Format("Available operators:{0}sum (summation){0}sub (substraction){0}div (division){0}mult (multiplication){0}pow (power){0}save <path>{0}load <path>", "\n"));
+            Console.WriteLine("");
+            Console.WriteLine("Press 'exit' to finish.");
+        }
+
+        public void DisplayMaze(AMaze maze)
+        {
+            maze.print();
         }
 
         public void Output(string output)
         {
-            Console.WriteLine(output);
-            m_output.Write("Unrecognized command!");
+            byte[] outString = System.Text.Encoding.UTF8.GetBytes(output.ToCharArray());
+            m_output.Write(outString, 0, outString.Length);
         }
     }
 }

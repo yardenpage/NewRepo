@@ -53,6 +53,15 @@ namespace ATP2016Project.Model.Algorithms.Search
         {
             return m_solutionPath;
         }
+
+        public string StringSolutionPath()
+        {
+            string result = "";
+            foreach (string p in m_solutionPath)
+            {
+                result=result+""+((string)p);
+            }
+        }
         /// <summary>
         /// doing a reverse to the arraylist states
         /// </summary>

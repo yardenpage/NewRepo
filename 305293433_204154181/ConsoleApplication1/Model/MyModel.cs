@@ -5,16 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ATP2016Project.Controller;
+using System.Collections;
+using ATP2016Project.Model.Algorithms.MazeGenerators;
+using ATP2016Project.Model.Algorithms.Search;
 
 namespace ATP2016Project.Model
 {
     public class MyModel : IModel
     {
-        private IController controller;
 
+        private IController controller;
+        private Dictionary<string, AMaze> MazesDic;
+        private Dictionary<string, string> MazesSol;
         public MyModel(IController controller)
         {
             this.controller = controller;
+            MazesDic = new Dictionary<string, AMaze>();
         }
 
         public string GetDir(string path)
@@ -22,19 +28,22 @@ namespace ATP2016Project.Model
             throw new NotImplementedException();
         }
 
-        public string GetDisplay(string name)
+        public AMaze GetDisplay(string name)
         {
-            throw new NotImplementedException();
-        }
-
-        public string GetDisplayCrossSectionBy(int index, string name)
-        {
-            throw new NotImplementedException();
+            if (MazesDic.ContainsKey(name))
+            {
+                return MazesDic[name];
+            }
+            return null;
         }
 
         public string GetDisplaySolution(string name)
         {
-            throw new NotImplementedException();
+            if (MazesSol.ContainsKey(name))
+            {
+                return MazesSol[name];
+            }
+            return null;
         }
 
         public string GetExit()
@@ -47,9 +56,24 @@ namespace ATP2016Project.Model
             throw new NotImplementedException();
         }
 
-        public string GetGenerate3dMaze(string name, params int[] parameters)
+        public string GetGenerate3dMaze(string name, int[] parameters)
         {
-            throw new NotImplementedException();
+            ArrayList points = new ArrayList();
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                points.Add(parameters[i]);
+            }
+            MyMaze3dGenerator generator = new MyMaze3dGenerator();
+            AMaze maze = generator.generate(points);
+            if (MazesDic.ContainsKey(name))
+            {
+                MazesDic[name] = maze;
+            }
+            else
+            {
+                MazesDic.Add(name, maze);
+            }
+            return "maze " + name + " is ready";
         }
 
         public string GetLoadMaze(string path, string name)
@@ -59,7 +83,7 @@ namespace ATP2016Project.Model
 
         public string GetMazeSize(string name)
         {
-            throw new NotImplementedException();
+            return "The size of maze " + name + " in Bytes is " + (((Maze3d)MazesDic[name]).toByteArray()).Length;
         }
 
         public string GetSaveMaze(string name, string path)
@@ -67,9 +91,23 @@ namespace ATP2016Project.Model
             throw new NotImplementedException();
         }
 
-        public string GetSolveMaze(string name, Algorithms a)
+        public string GetSolveMaze(string name)
         {
-            throw new NotImplementedException();
+            ASearchingAlgorithm alg = new BreadthFirstSearch();;
+            Solution solution;
+            ISearchable maze3d = new SearchableMaze3d((Maze3d)MazesDic[name]);
+            
+            solution = alg.Solve(maze3d);
+            if (solution.IsSolutionExists())
+            {
+                if (MazesSol.ContainsKey(name))
+                    MazesSol[name] = solution.StringSolutionPath();
+                else
+                {
+                    MazesSol.Add(name, solution.StringSolutionPath());
+                }
+            }
+            return "solution for " + name + " is ready";
         }
     }
 }

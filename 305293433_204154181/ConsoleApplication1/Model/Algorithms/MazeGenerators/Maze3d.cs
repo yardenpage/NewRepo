@@ -136,5 +136,41 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             byteMaze.AddRange(getPrint());
             return byteMaze.ToArray();
         }
+
+        public Maze2d Getmaze2dBySection(char c, int index)
+        {
+            Maze2d maze2d;
+            if (c == 'z' || c=='Z')
+                return maze3d[index];
+            else
+            {
+                if (c == 'x' || c== 'X')
+                {
+                    maze2d = new Maze2d(maze3d[0].y, maze3d.Length);
+                    for (int j= maze3d.Length-1; j>=0; j--)
+                    {
+                        for(int i=0; i< maze3d[0].y; i++)
+                        {
+                            maze2d.Maze[i, j] = maze3d[j].Maze[index, i];
+                        }
+                    }
+                    return maze2d;
+                }
+                else if (c == 'y' || c=='Y')
+                {
+                    maze2d = new Maze2d(maze3d[0].x, maze3d.Length);
+                    for (int j = maze3d.Length - 1; j >= 0; j--)
+                    {
+                        for (int i = 0; i < maze3d[0].x; i++)
+                        {
+                            maze2d.Maze[i, j] = maze3d[j].Maze[i, index];
+                        }
+                    }
+                    return maze2d;
+                }
+
+            }
+            return new Maze2d(0, 0);
+        }
     }
 }

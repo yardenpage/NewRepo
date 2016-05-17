@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ATP2016Project.Model.Algorithms.MazeGenerators;
+using ATP2016Project.Model.Algorithms.Search;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,13 +13,12 @@ namespace ATP2016Project.Model
     {
         string GetDir(string path);
         string GetGenerate3dMaze(string name, params int[] parameters);
-        string GetDisplay(string name);
-        string GetDisplayCrossSectionBy(int index, string name);
+        AMaze GetDisplay(string name);
         string GetSaveMaze(string name, string path);
         string GetLoadMaze(string path, string name);
         string GetMazeSize(string name);
         string GetFileSize(string path);
-        string GetSolveMaze(string name, Algorithms a);
+        string GetSolveMaze(string name);
         string GetDisplaySolution(string name);
         string GetExit();
     }

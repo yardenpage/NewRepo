@@ -244,13 +244,12 @@ namespace ATP2016Project
             controller.SetView(view);
             view.Start();
 
-            Position startMaze = new Position3d(b[3], b[4], b[5]);
+            /*Position startMaze = new Position3d(b[3], b[4], b[5]);
             Start = startMaze;
             Position endMaze = new Position3d(b[6], b[7], b[8]);
             End = endMaze;
-            7:22PM
 
-    /*using (Stream stdin = Console.OpenStandardInput())
+            using (Stream stdin = Console.OpenStandardInput())
             using (Stream stdout = Console.OpenStandardOutput())
             {
                 byte[] buffer = new byte[2048];

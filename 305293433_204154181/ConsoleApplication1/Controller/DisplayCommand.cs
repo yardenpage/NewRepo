@@ -1,4 +1,5 @@
 ﻿using ATP2016Project.Model;
+using ATP2016Project.Model.Algorithms.MazeGenerators;
 using ATP2016Project.View;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace ATP2016Project.Controller
         }
         public override void DoCommand(params string[] parameters)
         {
-            throw new NotImplementedException();
+            AMaze maze = m_model.GetDisplay(parameters[0]);
+            m_view.DisplayMaze(maze);
         }
 
         public override string GetName()

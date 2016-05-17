@@ -17,7 +17,7 @@ namespace ATP2016Project.Controller
         }
         public override void DoCommand(params string[] parameters)
         {
-            throw new NotImplementedException();
+            m_view.Output(m_model.GetMazeSize(parameters[0]));
         }
 
         public override string GetName()

@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ACommand.cs" />
-    <Compile Include="Controller\DisplayCrossSectionByCommand.cs" />
     <Compile Include="Controller\DisplaySolutionCommand.cs" />
     <Compile Include="Controller\ExitCommand.cs" />
     <Compile Include="Controller\FileSizeCommand.cs" />
@@ -52,6 +51,7 @@
     <Compile Include="Controller\MazeSizeCommand.cs" />
     <Compile Include="Controller\SaveMazeCommand.cs" />
     <Compile Include="Controller\SolveMazeCommand.cs" />
+    <Compile Include="IModle.cs" />
     <Compile Include="Model\AModel.cs" />
     <Compile Include="Controller\DirCommand.cs" />
     <Compile Include="Controller\DisplayCommand.cs" />
