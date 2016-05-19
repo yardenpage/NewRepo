@@ -32,13 +32,6 @@ namespace ATP2016Project.Model
         {
             this.controller = controller;
             MazesDic = new Dictionary<string, AMaze>();
-            ActivateThreadPool();
-        }
-        private void ActivateThreadPool()
-        {
-            int workerThreads = 10;
-            int completionPortThreads = 10;
-            ThreadPool.SetMaxThreads(workerThreads, completionPortThreads);
         }
 
         /// <summary>
@@ -129,7 +122,7 @@ namespace ATP2016Project.Model
         /// <param name="parameters"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public string GetGenerate3dMaze(string name, int[] parameters)
+        public void GetGenerate3dMaze(string name, int[] parameters)
         {
             ArrayList points = new ArrayList();
             for (int i = 0; i < parameters.Length; i++)
@@ -146,7 +139,7 @@ namespace ATP2016Project.Model
             {
                 MazesDic.Add(name, maze);
             }
-            return "maze " + name + " is ready";
+            controller.Output("maze " + name + " is ready");
         }
         /// <summary>
         /// function that load the maze from a file and call it in his name
@@ -209,7 +202,7 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public string GetSolveMaze(string name)
+        public void GetSolveMaze(string name)
         {
             ASearchingAlgorithm alg = new BreadthFirstSearch(); ;
             Solution solution;
@@ -225,8 +218,27 @@ namespace ATP2016Project.Model
                     MazesSol.Add(name, solution.StringSolutionPath());
                 }
             }
-            return "solution for " + name + " is ready";
+            controller.Output("solution for " + name + " is ready");
         }
+
+        #region Generate and Solve In Threads
+        public void GenerateInNewThread(string name, int[] parameters)
+        {
+            new Thread(() =>
+            {
+                GetGenerate3dMaze(name, parameters);
+            }).Start();
+        }
+
+        public void SolveInNewThread(string name)
+        {
+            new Thread(() =>
+            {
+                GetSolveMaze(name);
+            }).Start();
+        }
+
+        #endregion
 
     }
 }

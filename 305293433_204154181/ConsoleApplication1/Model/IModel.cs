@@ -26,7 +26,7 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        string GetGenerate3dMaze(string name, params int[] parameters);
+         void GetGenerate3dMaze(string name, params int[] parameters);
         /// <summary>
         /// function to display a maze in the given name
         /// </summary>
@@ -63,7 +63,7 @@ namespace ATP2016Project.Model
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        string GetSolveMaze(string name);
+        void GetSolveMaze(string name);
         /// <summary>
         /// display the solution
         /// </summary>
@@ -75,5 +75,9 @@ namespace ATP2016Project.Model
         /// </summary>
         /// <returns></returns>
         string GetExit();
+
+        void GenerateInNewThread(string name, int[] parameters);
+
+        void SolveInNewThread(string name);
     }
 }

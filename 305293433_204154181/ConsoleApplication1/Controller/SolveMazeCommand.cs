@@ -26,7 +26,8 @@ namespace ATP2016Project.Controller
          /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
-            m_view.Output(m_model.GetSolveMaze(parameters[0]));
+            m_model.GetSolveMaze(parameters[0]);
+            
         }
         /// <summary>
         /// get the name
@@ -35,6 +36,11 @@ namespace ATP2016Project.Controller
         public override string GetName()
         {
             return "solve maze";
+        }
+
+        public void Output(string s)
+        {
+            m_view.Output(s);
         }
     }
 }

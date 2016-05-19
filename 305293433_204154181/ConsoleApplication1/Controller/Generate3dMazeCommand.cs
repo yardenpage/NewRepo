@@ -37,7 +37,8 @@ namespace ATP2016Project.Controller
                 int.TryParse(parameters[i], out value);
                 a[i - 1] = value;
             }
-            m_view.Output(m_model.GetGenerate3dMaze(parameters[0], a));
+            m_model.GenerateInNewThread(parameters[0], a);
+            //m_view.Output(m_model.GenerateInNewThread(parameters[0], a));
         }
 
         /// <summary>
@@ -47,6 +48,10 @@ namespace ATP2016Project.Controller
         public override string GetName()
         {
             return "generate 3d maze";
+        }
+        public void Output(String s)
+        {
+            m_view.Output(s);
         }
     }
 }
