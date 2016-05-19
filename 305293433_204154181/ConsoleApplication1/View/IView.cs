@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ATP2016Project.Controller;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
+using System.Collections;
 
 namespace ATP2016Project.View
 {/// <summary>
@@ -31,5 +32,6 @@ namespace ATP2016Project.View
         /// </summary>
         /// <param name="dictionary"></param>
         void SetCommands(Dictionary<string, ACommand> dictionary);
+        void SetParameters(Dictionary<string, ArrayList> parameters);
     }
 }

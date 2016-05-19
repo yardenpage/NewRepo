@@ -27,7 +27,11 @@ namespace ATP2016Project.Controller
         /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
-            m_view.Output(m_model.GetDisplaySolution(parameters[0]));
+            string s = m_model.GetDisplaySolution(parameters[0]);
+            if(s==null)
+                m_view.Output("maze name" + parameters[0] + "doesn't exist!");
+            else
+                m_view.Output(s);
         }
         /// <summary>
         /// get the name
@@ -35,7 +39,7 @@ namespace ATP2016Project.Controller
         /// <returns></returns>
         public override string GetName()
         {
-          return  "displaysolution";
+          return  "display solution";
         }
     }
 }

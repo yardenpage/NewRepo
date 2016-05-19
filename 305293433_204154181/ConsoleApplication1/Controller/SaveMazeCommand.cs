@@ -34,7 +34,7 @@ namespace ATP2016Project.Controller
 
         public override string GetName()
         {
-           return "savemaze";
+           return "save maze";
         }
     }
 }

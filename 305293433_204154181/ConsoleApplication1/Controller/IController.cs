@@ -1,6 +1,7 @@
 ﻿using ATP2016Project.Model;
 using ATP2016Project.View;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,9 @@ namespace ATP2016Project.Controller
 /// </summary>
     public interface IController
     {/// <summary>
-    /// set the given model
-    /// </summary>
-    /// <param name="model"></param>
+     /// set the given model
+     /// </summary>
+     /// <param name="model"></param>
         void SetModel(IModel model);
         /// <summary>
         /// set the given view
@@ -25,7 +26,9 @@ namespace ATP2016Project.Controller
         /// return the command dictionary
         /// </summary>
         /// <returns></returns>
-        Dictionary<string, ICommand> getCommands();
+        Dictionary<string, ACommand> GetCommands();
+
+        Dictionary<string, ArrayList> GetParameters();
         /// <summary>
         /// display the output
         /// </summary>

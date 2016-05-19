@@ -1,6 +1,7 @@
 ﻿using ATP2016Project.Controller;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -17,6 +18,7 @@ namespace ATP2016Project.View
         private Stream m_input;
         private Stream m_output;
         private Dictionary<string, ACommand> m_commands;
+        private Dictionary<string, ArrayList> m_commandsparameters;
         private string m_cursor = ">>";
         /// <summary>
         /// CLI constructor
@@ -27,18 +29,6 @@ namespace ATP2016Project.View
             m_controller = controller;
             m_input = Console.OpenStandardInput();
             m_output = Console.OpenStandardOutput();
-            m_commands = new Dictionary<string, ACommand>();
-            byte[] buffer = new byte[2048];
-            int bytes;
-            Console.WriteLine("Insert your commands, at the end each command press enter, to pinish enter 'Done': \n");
-            while ((bytes = m_input.Read(buffer, 0, buffer.Length)) > 0)
-            {
-                if (!m_commands.ContainsKey(m_input.ToString()))
-                {
-                    //ICommand c = new ACommand();
-                    //m_commands.Add(m_input.ToString(), c);
-                }
-            }
         }
         /// <summary>
         /// set input
@@ -67,6 +57,7 @@ namespace ATP2016Project.View
             PrintInstructions();
             string userCommand;
             string[] partedCommand;
+            string[] parameters;
             string command;
             while (true)
             {
@@ -85,7 +76,23 @@ namespace ATP2016Project.View
                     }
                     else
                     {
-                        m_commands[command].DoCommand(partedCommand);
+                        try {
+                            parameters = new string[partedCommand.Length - 1];
+                            for (int i = 1; i < parameters.Length; i++)
+                            {
+                                parameters[i - 1] = partedCommand[i];
+                            }
+                            if (parameters.Length == m_commandsparameters[command].Count)
+                                m_commands[command].DoCommand(partedCommand);
+                            else
+                            {
+                                throw new Exception();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Output("Invalid number of parameters!");
+                        }
                     }
                 }
                 catch (Exception)
@@ -98,12 +105,25 @@ namespace ATP2016Project.View
         /// <summary>
         /// print all the instructions
         /// </summary>
-        private static void PrintInstructions()
+        private void PrintInstructions()
         {
             Console.WriteLine("Command Line Interface (CLI) started!");
             Console.WriteLine("");
             Console.WriteLine("Enter the name of the command to execute.");
-            //Console.WriteLine(String.Format("Available operators:{0}sum (summation){0}sub (substraction){0}div (division){0}mult (multiplication){0}pow (power){0}save <path>{0}load <path>", "\n"));
+            Console.WriteLine("");
+            Console.WriteLine("Available Commands:");
+            int count = 1;
+            foreach (KeyValuePair <string, ArrayList> value in m_commandsparameters)
+            {
+                Console.Write(count+".  ");
+                Console.Write(value.Key);
+                Console.Write(" ");
+                for(int i=0; i<value.Value.Count; i++)
+                {
+                    Console.Write(value.Value[i]+" ");
+                }
+                count++;
+            }
             Console.WriteLine("");
             Console.WriteLine("Press 'exit' to finish.");
         }
@@ -143,6 +163,10 @@ namespace ATP2016Project.View
         public void SetCommands(Dictionary<string, ACommand> commands)
         {
             m_commands = commands;
+        }
+        public void SetParameters(Dictionary<string, ArrayList> parameters)
+        {
+            m_commandsparameters = parameters;
         }
         /// <summary>
         /// return string of the input

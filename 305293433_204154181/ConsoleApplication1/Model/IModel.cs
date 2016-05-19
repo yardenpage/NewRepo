@@ -19,7 +19,7 @@ namespace ATP2016Project.Model
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        string[] GetDir(string path);
+        string GetDir(string path);
         /// <summary>
         /// function that generate 3dmaze
         /// </summary>

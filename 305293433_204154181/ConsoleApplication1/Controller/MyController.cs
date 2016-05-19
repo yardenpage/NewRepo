@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ATP2016Project.View;
 using ATP2016Project.Model;
+using System.Collections;
 
 namespace ATP2016Project.Controller
 {/// <summary>
@@ -14,6 +15,8 @@ namespace ATP2016Project.Controller
     {
         private IModel m_model;
         private IView m_view;
+        private Dictionary<string, ACommand> commands;
+        private Dictionary<string, ArrayList> parameters;
         /// <summary>
         /// constructor of MyController
         /// </summary>
@@ -24,13 +27,14 @@ namespace ATP2016Project.Controller
             m_model = model;
             m_view = view;
             m_view.SetCommands(GetCommands());
+            m_view.SetParameters(GetParameters());
         }/// <summary>
          /// return the command dictionary
          /// </summary>
          /// <returns></returns>
-        private Dictionary<string, ACommand> GetCommands()
+        public Dictionary<string, ACommand> GetCommands()
         {
-            Dictionary<string, ACommand> commands = new Dictionary<string, ACommand>();
+            commands = new Dictionary<string, ACommand>();
             ACommand dir = new DirCommand(m_model, m_view);
             ACommand display = new DisplayCommand(m_model, m_view);
             ACommand displaysolution = new DisplaySolutionCommand(m_model, m_view);
@@ -53,15 +57,44 @@ namespace ATP2016Project.Controller
             commands.Add(solvemaze.GetName(), solvemaze);
             return commands;
         }
-        /// <summary>
-        /// return the command dictionary
-        /// </summary>
-        /// <returns></returns>
-        public Dictionary<string, ICommand> getCommands()
+
+        public Dictionary<string, ArrayList> GetParameters()
         {
-            throw new NotImplementedException();
+            parameters = new Dictionary<string, ArrayList>();
+            ArrayList parstring = new ArrayList();
+            parstring.Add("<path>");
+            parameters.Add("dir", parstring);
+            parstring.Clear();
+            parstring.Add("<maze name>");
+            parstring.Add("<width value>");
+            parstring.Add("<length value>");
+            parstring.Add("<hight value>");
+            parameters.Add("generate 3d maze", parstring);
+            parstring.Clear();
+            parstring.Add("<maze name>");
+            parameters.Add("display", parstring);
+            parstring.Clear();
+            parstring.Add("<maze name>");
+            parstring.Add("<file path>");
+            parameters.Add("save maze", parstring);
+            parstring.Clear();
+            parstring.Add("<file path>");
+            parstring.Add("<maze name>");
+            parameters.Add("load maze", parstring);
+            parstring.Clear();
+            parstring.Add("<maze name>");
+            parameters.Add("maze size", parstring);
+            parstring.Clear();
+            parstring.Add("<file path>");
+            parameters.Add("file size", parstring);
+            parstring.Clear();
+            parstring.Add("<maze name>");
+            parameters.Add("solve maze", parstring);
+            parameters.Add("display solution", parstring);
+            parstring.Clear();
+            parameters.Add("exit", parstring); 
+            return parameters;
         }
-        /// <summary>
         /// display the output
         /// </summary>
         /// <param name="output">string to output</param>

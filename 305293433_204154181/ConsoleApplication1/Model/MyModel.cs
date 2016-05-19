@@ -10,6 +10,8 @@ using ATP2016Project.Model.Algorithms.MazeGenerators;
 using ATP2016Project.Model.Algorithms.Search;
 using System.IO;
 using ATP2016Project.Model.Algorithms.Compression;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace ATP2016Project.Model
 {
@@ -30,44 +32,44 @@ namespace ATP2016Project.Model
         {
             this.controller = controller;
             MazesDic = new Dictionary<string, AMaze>();
+            ActivateThreadPool();
         }
+        private void ActivateThreadPool()
+        {
+            int workerThreads = 10;
+            int completionPortThreads = 10;
+            ThreadPool.SetMaxThreads(workerThreads, completionPortThreads);
+        }
+
         /// <summary>
         /// get files and dirs in the given path
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public string [] GetDir(string path)
+        public string GetDir(string path)
         {
-            string [] files;
-            string [] dirs;
-            List<string> outputFiles = new List<string>();
+            string[] files;
+            string[] dirs;
+            string filesDirs = "";
             try
             {
                 files = Directory.GetFiles(path);//get files at this path
                 foreach (string file in files)//print all files
                 {
                     //Console.WriteLine(file);
-                    outputFiles.Add(file);
+                    filesDirs += file + "\n";
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("There is no files in this path");
-            }
-
-            try
-            {
                 dirs = Directory.GetDirectories(path);//get dirs at this path
                 foreach (string dirr in dirs)
                 {
-                    outputFiles.Add(dirr);
+                    filesDirs += dirr + "\n";
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine("There is no dirs in this path");
+                filesDirs="Invalid path";
             }
-            return outputFiles.ToArray();
+            return filesDirs;
         }
         /// <summary>
         /// function to display a maze in the given name
@@ -110,10 +112,15 @@ namespace ATP2016Project.Model
         /// <returns></returns>
         public string GetFileSize(string path)
         {
-            string name = Path.GetFileName(path);
-            FileInfo f = new FileInfo(path);
-            long size = f.Length;
-            return size.ToString();
+            if (File.Exists(path))
+            {
+                string name = Path.GetFileName(path);
+                FileInfo f = new FileInfo(path);
+                long size = f.Length;
+                return size.ToString();
+            }
+            else
+                return null;
         }
         /// <summary>
         /// function that generate 3dmaze
@@ -121,6 +128,7 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string GetGenerate3dMaze(string name, int[] parameters)
         {
             ArrayList points = new ArrayList();
@@ -147,14 +155,22 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         public void GetLoadMaze(string path, string name)
         {
-            FileStream file = new FileStream(path, FileMode.Open);
-            MyCompressorStream compressor = new MyCompressorStream(file, MyCompressorStream.status.decompress);
-            int size = (((Maze3d)MazesDic[name]).toByteArray()).Length;
-            byte[] byteMaze = new byte[size];
-            string sizeToRead = GetFileSize(path);
-            compressor.Read(byteMaze, 0, Int32.Parse(sizeToRead));
-            Maze3d mazeToAdd = new Maze3d(byteMaze);
-            MazesDic[name] = mazeToAdd;
+            if (File.Exists(path))
+            {
+                FileStream file = new FileStream(path, FileMode.Open);
+                MyCompressorStream compressor = new MyCompressorStream(file, MyCompressorStream.status.decompress);
+                int size = (((Maze3d)MazesDic[name]).toByteArray()).Length;
+                byte[] byteMaze = new byte[size];
+                string sizeToRead = GetFileSize(path);
+                compressor.Read(byteMaze, 0, Int32.Parse(sizeToRead));
+                Maze3d mazeToAdd = new Maze3d(byteMaze);
+                MazesDic[name] = mazeToAdd;
+            }
+            else
+            {
+                Console.WriteLine("this file is exist");
+            }
+
 
         }
         /// <summary>
@@ -174,24 +190,31 @@ namespace ATP2016Project.Model
         /// <returns></returns>
         public void GetSaveMaze(string name, string path)
         {
-            FileStream file = new FileStream(path, FileMode.Create);
-            MyCompressorStream compressor = new MyCompressorStream(file, MyCompressorStream.status.compress);
-            AMaze maze = MazesDic[name];//get the maze object from dic
-            byte[] byteMaze = ((Maze3d)maze).toByteArray();
-            compressor.Write(byteMaze, 0, byteMaze.Length);
-
+            try
+            {
+                FileStream file = new FileStream(path, FileMode.Create);
+                MyCompressorStream compressor = new MyCompressorStream(file, MyCompressorStream.status.compress);
+                AMaze maze = MazesDic[name];//get the maze object from dic
+                byte[] byteMaze = ((Maze3d)maze).toByteArray();
+                compressor.Write(byteMaze, 0, byteMaze.Length);
+            }
+            catch (Exception)
+            {
+                Console.Write("invalid path");
+            }
         }
         /// <summary>
         /// function to display the solution of the maze given name
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public string GetSolveMaze(string name)
         {
-            ASearchingAlgorithm alg = new BreadthFirstSearch();;
+            ASearchingAlgorithm alg = new BreadthFirstSearch(); ;
             Solution solution;
             ISearchable maze3d = new SearchableMaze3d((Maze3d)MazesDic[name]);
-            
+
             solution = alg.Solve(maze3d);
             if (solution.IsSolutionExists())
             {

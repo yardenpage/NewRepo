@@ -27,11 +27,8 @@ namespace ATP2016Project.Controller
         /// <param name="parameters">path</param>
         public override void DoCommand(params string[] parameters)
         {
-            string[] dirs = m_model.GetDir(parameters[1]);
-                foreach (string dir in dirs)  {
-                m_view.Output(dir);
-            }
-          //  m_view.Output(m_model.GetDir(parameters[1]));
+            m_view.Output(m_model.GetDir(parameters[0]));
+            //  m_view.Output(m_model.GetDir(parameters[1]));
         }
         /// <summary>
         /// get the name

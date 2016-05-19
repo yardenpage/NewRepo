@@ -26,7 +26,12 @@ namespace ATP2016Project.Controller
         /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
-            m_view.Output(m_model.GetFileSize(parameters[1]));
+            string s;
+            s = m_model.GetFileSize(parameters[0]);
+            if (s == null)
+                m_view.Output("Invalid path!");
+            else
+                m_view.Output(s);
         }
         /// <summary>
         /// get the name
@@ -34,7 +39,7 @@ namespace ATP2016Project.Controller
         /// <returns></returns>
         public override string GetName()
         {
-            return "filesize";
+            return "file size";
         }
     }
 }

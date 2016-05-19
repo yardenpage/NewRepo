@@ -46,7 +46,7 @@ namespace ATP2016Project.Controller
         /// <returns></returns>
         public override string GetName()
         {
-            return "generate3dmaze";
+            return "generate 3d maze";
         }
     }
 }
