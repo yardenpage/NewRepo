@@ -72,7 +72,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <summary>
         /// print the coordinate
         /// </summary>
-        public abstract void PrintCorrdinates();
+        public abstract string PrintCorrdinates();
         /// <summary>
         /// icomparble function - not implement
         /// </summary>

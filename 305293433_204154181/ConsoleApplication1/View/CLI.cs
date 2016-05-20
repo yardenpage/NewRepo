@@ -59,9 +59,9 @@ namespace ATP2016Project.View
             string[] partedCommand;
             string[] parameters;
             string command;
+            Output(" ");
             while (true)
             {
-                Output("");
                 try
                 {
                     userCommand = Input().Trim();
@@ -76,11 +76,52 @@ namespace ATP2016Project.View
                     }
                     else
                     {
-
-                        parameters = new string[partedCommand.Length - 1];
-                        for (int i = 1; i < parameters.Length + 1; i++)
+                        if (command == "dir")
                         {
-                            parameters[i - 1] = partedCommand[i];
+                            parameters = new string[1];
+                            parameters[0]= partedCommand[1];
+                            for (int i = 2; i < partedCommand.Length; i++)
+                            {
+                                parameters[0] = parameters[0] + " " + partedCommand[i];
+                            }
+                        }
+                        else if (command == "savemaze")
+                        {
+                            parameters = new string[2];
+                            parameters[0] = partedCommand[1];
+                            parameters[1] = partedCommand[2];
+                            for (int i = 3; i < partedCommand.Length; i++)
+                            {
+                                parameters[1] = parameters[1] + " " + partedCommand[i];
+                            }
+                        }
+                        else if (command == "loadmaze")
+                        {
+                            parameters = new string[2];
+                            parameters[0] = partedCommand[1];
+                            
+                            for (int i = 1; i < partedCommand.Length-1; i++)
+                            {
+                                parameters[0] = parameters[0] + " " + partedCommand[i];
+                            }
+                            parameters[1] = partedCommand[partedCommand.Length - 1];
+                        }
+                        else if (command == "filesize")
+                        {
+                            parameters = new string[1];
+                            parameters[0] = partedCommand[1];
+                            for (int i = 2; i < partedCommand.Length; i++)
+                            {
+                                parameters[0] = parameters[0] + " " + partedCommand[i];
+                            }
+                        }
+                        else
+                        {
+                            parameters = new string[partedCommand.Length - 1];
+                            for (int i = 1; i < partedCommand.Length; i++)
+                            {
+                                parameters[i - 1] = partedCommand[i];
+                            }
                         }
                         try
                         {

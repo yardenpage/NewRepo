@@ -57,9 +57,9 @@ namespace ATP2016Project.Model.Algorithms.Search
         public string StringSolutionPath()
         {
             string result = "";
-            foreach (string p in m_solutionPath)
+            foreach (var s in m_solutionPath)
             {
-                result=result+""+((string)p);
+                result=result+((AState)s).PrintCorrdinates()+"\n";
             }
             return result;
         }

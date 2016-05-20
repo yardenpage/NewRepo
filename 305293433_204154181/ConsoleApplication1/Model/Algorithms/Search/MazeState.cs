@@ -189,9 +189,9 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <summary>
         /// print the coordinate of the point
         /// </summary>
-        public override void PrintCorrdinates()
+        public override string PrintCorrdinates()
         {
-            position3d.print();
+            return position3d.getPrint();
         }
 
     }

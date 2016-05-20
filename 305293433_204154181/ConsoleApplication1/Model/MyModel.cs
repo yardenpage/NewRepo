@@ -185,10 +185,11 @@ namespace ATP2016Project.Model
                 AMaze maze = MazesDic[name];//get the maze object from dic
                 byte[] byteMaze = ((Maze3d)maze).toByteArray();
                 compressor.Write(byteMaze, 0, byteMaze.Length);
+                m_controller.Output("the maze " + name + " save in the given path.");
             }
             catch (Exception)
             {
-                Console.Write("invalid path");
+                m_controller.Output("invalid path");
             }
         }
         /// <summary>

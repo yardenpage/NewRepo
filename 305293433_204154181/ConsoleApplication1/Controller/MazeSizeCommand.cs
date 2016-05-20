@@ -27,7 +27,7 @@ namespace ATP2016Project.Controller
         /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
-            m_view.Output(m_model.GetMazeSize(parameters[1]));
+            m_view.Output(m_model.GetMazeSize(parameters[0]));
         }
         /// <summary>
         /// get the name

@@ -27,7 +27,7 @@ namespace ATP2016Project.Controller
         /// <param name="parameters">path'name</param>
         public override void DoCommand(params string[] parameters)
         {
-            m_model.GetLoadMaze(parameters[1], parameters[2]);
+            m_model.GetLoadMaze(parameters[0], parameters[1]);
 
         }
         /// <summary>
