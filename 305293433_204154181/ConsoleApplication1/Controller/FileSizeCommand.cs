@@ -39,7 +39,7 @@ namespace ATP2016Project.Controller
         /// <returns></returns>
         public override string GetName()
         {
-            return "file size";
+            return "filesize";
         }
     }
 }

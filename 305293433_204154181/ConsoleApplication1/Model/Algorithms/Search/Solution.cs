@@ -61,6 +61,7 @@ namespace ATP2016Project.Model.Algorithms.Search
             {
                 result=result+""+((string)p);
             }
+            return result;
         }
         /// <summary>
         /// doing a reverse to the arraylist states

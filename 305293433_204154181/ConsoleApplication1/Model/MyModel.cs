@@ -1,9 +1,5 @@
-﻿using ATP2016Project.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ATP2016Project.Controller;
 using System.Collections;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
@@ -21,7 +17,7 @@ namespace ATP2016Project.Model
     public class MyModel : IModel
     {
 
-        private IController controller;
+        private IController m_controller;
         private Dictionary<string, AMaze> MazesDic;
         private Dictionary<string, string> MazesSol;
         /// <summary>
@@ -30,8 +26,9 @@ namespace ATP2016Project.Model
         /// <param name="controller"></param>
         public MyModel(IController controller)
         {
-            this.controller = controller;
+            m_controller = controller;
             MazesDic = new Dictionary<string, AMaze>();
+            MazesSol = new Dictionary<string, string>();
         }
 
         /// <summary>
@@ -139,7 +136,7 @@ namespace ATP2016Project.Model
             {
                 MazesDic.Add(name, maze);
             }
-            controller.Output("maze " + name + " is ready");
+            m_controller.Output("maze " + name + " is ready");
         }
         /// <summary>
         /// function that load the maze from a file and call it in his name
@@ -161,10 +158,8 @@ namespace ATP2016Project.Model
             }
             else
             {
-                Console.WriteLine("this file is exist");
+                Console.WriteLine("this file isn't exist");
             }
-
-
         }
         /// <summary>
         /// function to get the maze size in bytes and display it
@@ -173,7 +168,7 @@ namespace ATP2016Project.Model
         /// <returns></returns>
         public string GetMazeSize(string name)
         {
-            return "The size of maze " + name + " in Bytes is " + (((Maze3d)MazesDic[name]).toByteArray()).Length;
+            return "The size of the maze " + name + " in Bytes is " + (((Maze3d)MazesDic[name]).toByteArray()).Length;
         }
         /// <summary>
         /// this function save in the path a compress maze
@@ -206,19 +201,26 @@ namespace ATP2016Project.Model
         {
             ASearchingAlgorithm alg = new BreadthFirstSearch(); ;
             Solution solution;
-            ISearchable maze3d = new SearchableMaze3d((Maze3d)MazesDic[name]);
-
-            solution = alg.Solve(maze3d);
-            if (solution.IsSolutionExists())
+            if (MazesDic.ContainsKey(name))
             {
-                if (MazesSol.ContainsKey(name))
-                    MazesSol[name] = solution.StringSolutionPath();
-                else
+                ISearchable maze3d = new SearchableMaze3d((Maze3d)MazesDic[name]);
+
+                solution = alg.Solve(maze3d);
+                if (solution.IsSolutionExists())
                 {
-                    MazesSol.Add(name, solution.StringSolutionPath());
+                    if (MazesSol.ContainsKey(name))
+                        MazesSol[name] = solution.StringSolutionPath();
+                    else
+                    {
+                        MazesSol.Add(name, solution.StringSolutionPath());
+                    }
                 }
+                m_controller.Output("solution for " + name + " is ready");
             }
-            controller.Output("solution for " + name + " is ready");
+            else
+            {
+                m_controller.Output("the maze " + name + " isn't exist");
+            }
         }
 
         #region Generate and Solve In Threads

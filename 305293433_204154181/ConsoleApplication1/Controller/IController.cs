@@ -28,7 +28,7 @@ namespace ATP2016Project.Controller
         /// <returns></returns>
         Dictionary<string, ACommand> GetCommands();
 
-        Dictionary<string, ArrayList> GetParameters();
+        Dictionary<string, string[]> GetParameters();
         /// <summary>
         /// display the output
         /// </summary>

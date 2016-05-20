@@ -32,6 +32,6 @@ namespace ATP2016Project.View
         /// </summary>
         /// <param name="dictionary"></param>
         void SetCommands(Dictionary<string, ACommand> dictionary);
-        void SetParameters(Dictionary<string, ArrayList> parameters);
+        void SetParameters(Dictionary<string, string[]> parameters);
     }
 }

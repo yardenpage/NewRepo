@@ -18,7 +18,7 @@ namespace ATP2016Project.View
         private Stream m_input;
         private Stream m_output;
         private Dictionary<string, ACommand> m_commands;
-        private Dictionary<string, ArrayList> m_commandsparameters;
+        private Dictionary<string, string[]> m_commandsparameters;
         private string m_cursor = ">>";
         /// <summary>
         /// CLI constructor
@@ -52,7 +52,7 @@ namespace ATP2016Project.View
         /// </summary>
         public void Start()
         {
-            
+
             Console.WriteLine("Command started!\n");
             PrintInstructions();
             string userCommand;
@@ -76,14 +76,16 @@ namespace ATP2016Project.View
                     }
                     else
                     {
-                        try {
-                            parameters = new string[partedCommand.Length - 1];
-                            for (int i = 1; i < parameters.Length; i++)
-                            {
-                                parameters[i - 1] = partedCommand[i];
-                            }
-                            if (parameters.Length == m_commandsparameters[command].Count)
-                                m_commands[command].DoCommand(partedCommand);
+
+                        parameters = new string[partedCommand.Length - 1];
+                        for (int i = 1; i < parameters.Length + 1; i++)
+                        {
+                            parameters[i - 1] = partedCommand[i];
+                        }
+                        try
+                        {
+                            if (parameters.Length == m_commandsparameters[command].Length)
+                                m_commands[command].DoCommand(parameters);
                             else
                             {
                                 throw new Exception();
@@ -96,11 +98,11 @@ namespace ATP2016Project.View
                     }
                 }
                 catch (Exception)
-                    {
-                        Output("Unrecognized command!");
-                    }
+                {
+                    Output("Unrecognized command!");
                 }
             }
+        }
 
         /// <summary>
         /// print all the instructions
@@ -113,15 +115,16 @@ namespace ATP2016Project.View
             Console.WriteLine("");
             Console.WriteLine("Available Commands:");
             int count = 1;
-            foreach (KeyValuePair <string, ArrayList> value in m_commandsparameters)
+            foreach (KeyValuePair<string, string[]> value in m_commandsparameters)
             {
-                Console.Write(count+".  ");
+                Console.Write(count + ".  ");
                 Console.Write(value.Key);
                 Console.Write(" ");
-                for(int i=0; i<value.Value.Count; i++)
+                for (int i = 0; i < value.Value.Length; i++)
                 {
-                    Console.Write(value.Value[i]+" ");
+                    Console.Write(value.Value[i] + " ");
                 }
+                Console.WriteLine();
                 count++;
             }
             Console.WriteLine("");
@@ -164,7 +167,7 @@ namespace ATP2016Project.View
         {
             m_commands = commands;
         }
-        public void SetParameters(Dictionary<string, ArrayList> parameters)
+        public void SetParameters(Dictionary<string, string[]> parameters)
         {
             m_commandsparameters = parameters;
         }

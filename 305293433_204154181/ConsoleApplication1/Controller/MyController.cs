@@ -16,22 +16,37 @@ namespace ATP2016Project.Controller
         private IModel m_model;
         private IView m_view;
         private Dictionary<string, ACommand> commands;
-        private Dictionary<string, ArrayList> parameters;
+        private Dictionary<string, string[]> parameters;
         /// <summary>
         /// constructor of MyController
         /// </summary>
         /// <param name="model"></param>
         /// <param name="view"></param>
-        public MyController(IModel model, IView view)
+        public MyController()
+        {
+        }
+        /// <summary>
+        /// set the given model
+        /// </summary>
+        /// <param name="model"></param>
+        public void SetModel(IModel model)
         {
             m_model = model;
+        }
+        /// <summary>
+        /// set the given view
+        /// </summary>
+        /// <param name="view"></param>
+        public void SetView(IView view)
+        {
             m_view = view;
             m_view.SetCommands(GetCommands());
             m_view.SetParameters(GetParameters());
-        }/// <summary>
-         /// return the command dictionary
-         /// </summary>
-         /// <returns></returns>
+        }
+        /// <summary>
+        /// return the command dictionary
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<string, ACommand> GetCommands()
         {
             commands = new Dictionary<string, ACommand>();
@@ -58,41 +73,38 @@ namespace ATP2016Project.Controller
             return commands;
         }
 
-        public Dictionary<string, ArrayList> GetParameters()
+        public Dictionary<string, string[]> GetParameters()
         {
-            parameters = new Dictionary<string, ArrayList>();
+            parameters = new Dictionary<string, string[]>();
             ArrayList parstring = new ArrayList();
-            parstring.Add("<path>");
-            parameters.Add("dir", parstring);
-            parstring.Clear();
-            parstring.Add("<maze name>");
-            parstring.Add("<width value>");
-            parstring.Add("<length value>");
-            parstring.Add("<hight value>");
-            parameters.Add("generate 3d maze", parstring);
-            parstring.Clear();
-            parstring.Add("<maze name>");
-            parameters.Add("display", parstring);
-            parstring.Clear();
-            parstring.Add("<maze name>");
-            parstring.Add("<file path>");
-            parameters.Add("save maze", parstring);
-            parstring.Clear();
-            parstring.Add("<file path>");
-            parstring.Add("<maze name>");
-            parameters.Add("load maze", parstring);
-            parstring.Clear();
-            parstring.Add("<maze name>");
-            parameters.Add("maze size", parstring);
-            parstring.Clear();
-            parstring.Add("<file path>");
-            parameters.Add("file size", parstring);
-            parstring.Clear();
-            parstring.Add("<maze name>");
-            parameters.Add("solve maze", parstring);
-            parameters.Add("display solution", parstring);
-            parstring.Clear();
-            parameters.Add("exit", parstring); 
+            string[] s1 = new string[1];
+            s1[0] = "<path>";
+            string[] s2 = new string[4];
+            s2[0] = "<maze name>";
+            s2[1] = "<width value>";
+            s2[2] = "<length value>";
+            s2[3] = "<hight value>";
+            string[] s3 = new string[1];
+            s3[0] = "<maze name>";
+            string[] s4 = new string[2];
+            s4[0] = "<maze name>";
+            s4[1] = "<file path>";
+            string[] s5 = new string[2];
+            s5[0] = "<file path>";
+            s5[1] = "<maze name>";
+            string[] s6 = new string[1];
+            s6[0] = "<file path>";
+            string[] s7 = new string[0];
+            parameters.Add("dir", s1);          
+            parameters.Add("generate3dmaze", s2);          
+            parameters.Add("display", s3);          
+            parameters.Add("savemaze", s4);
+            parameters.Add("loadmaze", s5);
+            parameters.Add("mazesize", s3);
+            parameters.Add("filesize", s6);
+            parameters.Add("solvemaze", s3);
+            parameters.Add("displaysolution", s3);
+            parameters.Add("exit", s7); 
             return parameters;
         }
         /// display the output
@@ -100,23 +112,9 @@ namespace ATP2016Project.Controller
         /// <param name="output">string to output</param>
         public void Output(string output)
         {
-            throw new NotImplementedException();
+            m_view.Output(output);
         }
-        /// <summary>
-        /// set the given model
-        /// </summary>
-        /// <param name="model"></param>
-        public void SetModel(IModel model)
-        {
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// set the given view
-        /// </summary>
-        /// <param name="view"></param>
-        public void SetView(IView view)
-        {
-            throw new NotImplementedException();
-        }
+
+
     }
 }

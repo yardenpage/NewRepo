@@ -35,7 +35,7 @@ namespace ATP2016Project.Controller
         /// <returns></returns>
         public override string GetName()
         {
-            return "solve maze";
+            return "solvemaze";
         }
 
         public void Output(string s)

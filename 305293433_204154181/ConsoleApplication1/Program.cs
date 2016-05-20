@@ -18,7 +18,7 @@ namespace ATP2016Project
     class Program
     {
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             AMazeGenerator mA = new DFS2dGenerator();
             AMazeGenerator mB = new MyMaze3dGenerator();
@@ -28,7 +28,7 @@ namespace ATP2016Project
             //testMaze3dGenerator(mB);
             //testSearchAlgorithms();
             //testCompress();
-            //testController();
+            testController();
 
             Console.ReadLine();
 
@@ -238,13 +238,13 @@ namespace ATP2016Project
 
         private static void testController()
         {
-            //IController controller = new MyController();
-            //IModle model = new MyModel(controller);
-            //controller.SetModel(model);
-            //IView view = new CLI(controller);
-            //controller.SetView(view);
-            //view.Start();
-
+            IController controller = new MyController();
+            IModel model = new MyModel(controller);
+            controller.SetModel(model);
+            IView view = new CLI(controller);
+            controller.SetView(view);
+            view.Start();
+            
             /*Position startMaze = new Position3d(b[3], b[4], b[5]);
             Start = startMaze;
             Position endMaze = new Position3d(b[6], b[7], b[8]);
