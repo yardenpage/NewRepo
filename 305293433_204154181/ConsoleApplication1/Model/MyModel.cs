@@ -48,9 +48,15 @@ namespace ATP2016Project.Model
                 files = Directory.GetFiles(path);//get files at this path
                 foreach (string file in files)//print all files
                 {
-                    //Console.WriteLine(file);
                     filesDirs += file + "\n";
                 }
+            }
+            catch (Exception)
+            {
+                filesDirs = "invalid path";
+            }
+            try
+            {
                 dirs = Directory.GetDirectories(path);//get dirs at this path
                 foreach (string dirr in dirs)
                 {
@@ -59,7 +65,7 @@ namespace ATP2016Project.Model
             }
             catch (Exception)
             {
-                filesDirs="Invalid path";
+                filesDirs = "invalid path";
             }
             return filesDirs;
         }
@@ -114,12 +120,10 @@ namespace ATP2016Project.Model
                 string name = Path.GetFileName(path);
                 FileInfo f = new FileInfo(path);
                 long size = f.Length;
-                return("the size of the file "+ path+ " in bytes is: "+size.ToString());
+                return size.ToString();
             }
-            else
-            {
-                return("the file isn't exist!");
-            }
+            else return null;
+
         }
         /// <summary>
         /// function that generate 3dmaze
@@ -152,32 +156,41 @@ namespace ATP2016Project.Model
         /// </summary>
         /// <param name="path"></param>
         /// <param name="name"></param>
-        public string GetLoadMaze(string path, string name)
+        public void GetLoadMaze(string path, string name)
         {
+            int r = 0;
+            List<byte> decompressed = new List<byte>();
             if (File.Exists(path))
             {
-                FileStream file = new FileStream(path, FileMode.Open);
-                MyCompressorStream compressor = new MyCompressorStream(file, MyCompressorStream.status.decompress);
-                //int size = (((Maze3d)MazesDic[name]).toByteArray()).Length;
-                //byte[] byteMaze = new byte[size];
-                string sizeToRead = GetFileSize(path);
-                int size = Int32.Parse(sizeToRead);
-                byte[] byteMaze = new byte[size];
-                compressor.Read(byteMaze, 0, size);
-                Maze3d mazeToAdd = new Maze3d(byteMaze);
-                if (MazesDic.ContainsKey(name))
+                try
                 {
-                    MazesDic[name] = mazeToAdd;
-                }
-                else
-                {
+                    FileStream file = new FileStream(path, FileMode.Open);
+                    //MyCompressorStream compressor = new MyCompressorStream(file, MyCompressorStream.status.decompress);
+                    byte[] byteMaze = new byte[2];
+                    MyMaze3DCompressor m = new MyMaze3DCompressor();
+                    while ((r = file.Read(byteMaze, 0, 2)) != 0)
+                    {
+                        byte[] decompressbyteMaze;
+                        decompressbyteMaze = m.decompress(byteMaze);
+                        for (int j = 0; j < decompressbyteMaze.Length; j++)
+                        {
+                            decompressed.Add(decompressbyteMaze[j]);
+                        }
+                        Array.Clear(byteMaze, 0, byteMaze.Length);
+                    }
+                    byte[] bytemaze = decompressed.ToArray();
+                    Maze3d mazeToAdd = new Maze3d(bytemaze);
                     MazesDic.Add(name, mazeToAdd);
                 }
-                return("the maze " + name + " loaded!");
+                catch (Exception)
+                {
+                    m_controller.Output("problem creation file");
+                }
+
             }
             else
             {
-                return("the file isn't exist!");
+                m_controller.Output("this file is exist");
             }
         }
         /// <summary>
@@ -195,7 +208,7 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public string GetSaveMaze(string name, string path)
+        public void GetSaveMaze(string name, string path)
         {
             try
             {
@@ -204,11 +217,11 @@ namespace ATP2016Project.Model
                 AMaze maze = MazesDic[name];//get the maze object from dic
                 byte[] byteMaze = ((Maze3d)maze).toByteArray();
                 compressor.Write(byteMaze, 0, byteMaze.Length);
-                return("the maze " + name + " save in the given path.");
+                m_controller.Output("the maze " + name + " save in the given path.");
             }
             catch (Exception)
             {
-                return("invalid path");
+                m_controller.Output("invalid path");
             }
         }
         /// <summary>

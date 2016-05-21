@@ -36,5 +36,9 @@ namespace ATP2016Project.Controller
         {
            return "savemaze";
         }
+        public void Output(string s)
+        {
+            m_view.Output(s);
+        }
     }
 }

@@ -37,5 +37,9 @@ namespace ATP2016Project.Controller
         {
             return "loadmaze";
         }
+        public void Output(string s)
+        {
+            m_view.Output(s);
+        }
     }
 }

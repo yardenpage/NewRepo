@@ -39,13 +39,13 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        string GetSaveMaze(string name, string path);
+        void GetSaveMaze(string name, string path);
         /// <summary>
         /// function that load the maze from a file and call it in his name
         /// </summary>
         /// <param name="path"></param>
         /// <param name="name"></param>
-        string GetLoadMaze(string path, string name);
+        void GetLoadMaze(string path, string name);
         /// <summary>
         /// function to get the maze size in bytes and display it
         /// </summary>
