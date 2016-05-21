@@ -58,5 +58,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 m_points = value;
             }
         }
+
+        public abstract void stop();
     }
 }

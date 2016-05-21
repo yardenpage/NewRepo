@@ -39,13 +39,13 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        void GetSaveMaze(string name, string path);
+        string GetSaveMaze(string name, string path);
         /// <summary>
         /// function that load the maze from a file and call it in his name
         /// </summary>
         /// <param name="path"></param>
         /// <param name="name"></param>
-        void GetLoadMaze(string path, string name);
+        string GetLoadMaze(string path, string name);
         /// <summary>
         /// function to get the maze size in bytes and display it
         /// </summary>
@@ -74,7 +74,7 @@ namespace ATP2016Project.Model
         /// exit 
         /// </summary>
         /// <returns></returns>
-        string GetExit();
+        void GetExit();
 
         void GenerateInNewThread(string name, int[] parameters);
 

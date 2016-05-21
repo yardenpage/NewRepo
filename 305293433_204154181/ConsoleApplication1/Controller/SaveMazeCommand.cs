@@ -25,7 +25,7 @@ namespace ATP2016Project.Controller
          /// <param name="parameters">name'path</param>
         public override void DoCommand(params string[] parameters)
         {
-            m_model.GetSaveMaze(parameters[0], parameters[1]);
+            m_view.Output(m_model.GetSaveMaze(parameters[0], parameters[1]));
         }
         /// <summary>
         /// get the name

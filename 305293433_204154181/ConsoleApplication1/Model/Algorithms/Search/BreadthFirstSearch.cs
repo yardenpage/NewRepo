@@ -15,7 +15,6 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// a queue of state we just discover
         /// </summary>
         private Queue<AState> m_openList;
-
         /// <summary>
         /// an empty constructor 
         /// </summary>
@@ -63,7 +62,7 @@ namespace ATP2016Project.Model.Algorithms.Search
             AState goalState = searchDomain.GetGoalState();
             AState state;
             IEnumerable<AState> stateSuccessors;
-            while (!IsEmptyOpenList())
+            while (!IsEmptyOpenList() && !stopFlag)
             {
                 state = PopOpenList();
                 AddToClosedList(state);
@@ -85,6 +84,8 @@ namespace ATP2016Project.Model.Algorithms.Search
                 }
             }
             StopMeasureTime();
+            if (stopFlag == true)
+                return null;
             return solution;
         }
         /// <summary>
@@ -109,6 +110,11 @@ namespace ATP2016Project.Model.Algorithms.Search
             AState popedState = m_openList.Dequeue();
             m_openListStates.Remove(popedState.GetState());
             return popedState;
+        }
+
+        public override void stop()
+        {
+            stopFlag = true;
         }
     }
 }

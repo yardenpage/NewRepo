@@ -11,6 +11,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     public class DFS2dGenerator : AMazeGenerator
     {
         private static Random rand = new Random(); //a random object for choosing a random neighbour
+        private Boolean stopFlag = false;
         /// <summary>
         /// constructor of a DFS 2d maze
         /// </summary>
@@ -116,7 +117,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 int y = mazeToGenerate.Start.y;
                 positionStack.Push(enter);
 
-                while (positionStack.Count > 0) //stop when we check all the "neighbours points" of the possible points to visit at the maze
+                while (positionStack.Count > 0 && !stopFlag) //stop when we check all the "neighbours points" of the possible points to visit at the maze
                 {
                     currCell = positionStack.Pop();
                     board[currCell.x, currCell.y].visit = Cell.Visit.visit; //mark the point as "visited"
@@ -141,7 +142,8 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         positionStack.Push(temp);
                     }
                 }
-
+                if (stopFlag == true)
+                    return null;
                 return mazeToGenerate;
             }
         }
@@ -176,6 +178,10 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 neighbours.Add(board[currCell.x + 2, currCell.y].Position);
             }
             return neighbours;
+        }
+        public override void stop()
+        {
+            stopFlag = true;
         }
     }
 }

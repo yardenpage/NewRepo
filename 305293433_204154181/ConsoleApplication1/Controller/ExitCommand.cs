@@ -26,7 +26,7 @@ namespace ATP2016Project.Controller
         /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
-            throw new NotImplementedException();
+            m_model.GetExit();
         }
         /// <summary>
         /// get the name

@@ -27,5 +27,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// </summary>
         /// <returns>the time</returns>
         double GetSolvingTimeMiliseconds();
+
+        void stop();
     }
 }

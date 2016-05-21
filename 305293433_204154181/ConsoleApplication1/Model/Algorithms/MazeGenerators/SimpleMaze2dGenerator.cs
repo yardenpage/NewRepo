@@ -10,6 +10,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     public class SimpleMaze2dGenerator : AMazeGenerator
     {
         private static Random random_y = new Random(); //a random object for choosing a random neighbour
+        private Boolean stopFlag = false;
         /// <summary>
         /// generate a simple maze 2d
         /// </summary>
@@ -54,11 +55,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 board[mazeToGenerate.End.x, mazeToGenerate.End.y].myvalue = Cell.status.path; //open the way of end point
 
                 int xToBuild, yToBuild;
-                for (xToBuild = 1; xToBuild < x - 1; xToBuild++)
+                for (xToBuild = 1; xToBuild < x - 1 && !stopFlag; xToBuild++)
                 {
                     if (xToBuild % 2 == 1) // convert all the odd x cells to path
                     {
-                        for (int tempY = 1; tempY < y - 1; tempY++)
+                        for (int tempY = 1; tempY < y - 1&&!stopFlag; tempY++)
                         {
                             board[xToBuild, tempY].myvalue = Cell.status.path;
                         }
@@ -66,15 +67,22 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                     else //if x is even
                     {
                         yToBuild = random_y.Next(1, y - 2); //get a random y corrdinate to break his wall
-                        for (int tempY = 1; tempY < y - 1; tempY++)
+                        for (int tempY = 1; tempY < y - 1&& !stopFlag; tempY++)
                         {
                             if (tempY == yToBuild)
                                 board[xToBuild, tempY].myvalue = Cell.status.path;
                         }
                     }
                 }
+                if(stopFlag == true)
+                    return null;
                 return mazeToGenerate;
             }
+        }
+
+        public override void stop()
+        {
+            stopFlag = true;
         }
     }
 

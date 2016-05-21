@@ -27,7 +27,6 @@ namespace ATP2016Project.Controller
         public override void DoCommand(params string[] parameters)
         {
             m_model.GetSolveMaze(parameters[0]);
-            
         }
         /// <summary>
         /// get the name

@@ -10,6 +10,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     public class MyMaze3dGenerator : AMazeGenerator
     {
         private static Random rand = new Random(); //a random object for choosing a random x
+        private Boolean stopFlag = false;
         /// <summary>
         /// generate a new simple maze
         /// </summary>
@@ -100,9 +101,14 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                     }
 
                 }
-
+                if (stopFlag == true)
+                    return null;
                 return mazeToGenerate;
             }
+        }
+        public override void stop()
+        {
+            stopFlag = true;
         }
     }
 }

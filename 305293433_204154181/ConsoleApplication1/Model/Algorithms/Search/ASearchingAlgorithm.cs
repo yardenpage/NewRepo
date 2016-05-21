@@ -31,6 +31,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <summary>
         /// constructor of ASearchingAlgorithm
         /// </summary>
+        protected Boolean stopFlag = false;
         public ASearchingAlgorithm()
         {
             m_openListStates = new Dictionary<string, AState>();
@@ -149,5 +150,6 @@ namespace ATP2016Project.Model.Algorithms.Search
             return m_stopWatch.Elapsed.TotalMilliseconds;
         }
 
+        public abstract void stop();
     }
 }

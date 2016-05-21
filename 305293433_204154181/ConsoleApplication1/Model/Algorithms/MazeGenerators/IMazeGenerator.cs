@@ -24,5 +24,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// <param name="points"> array of the corrdinates </param>
         /// <returns> string of the time </returns>
         string measureAlgorithmTime(ArrayList points);
+
+        void stop();
     }
 }
