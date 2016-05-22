@@ -50,6 +50,7 @@
     <Compile Include="Controller\LoadMazeCommand.cs" />
     <Compile Include="Controller\MazeSizeCommand.cs" />
     <Compile Include="Controller\SaveMazeCommand.cs" />
+    <Compile Include="Controller\showCommand.cs" />
     <Compile Include="Controller\SolveMazeCommand.cs" />
     <Compile Include="Model\AModel.cs" />
     <Compile Include="Controller\DirCommand.cs" />

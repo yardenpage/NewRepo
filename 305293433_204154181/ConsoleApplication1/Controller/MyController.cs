@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ATP2016Project.View;
 using ATP2016Project.Model;
 using System.Collections;
+using ConsoleApplication1.Controller;
 
 namespace ATP2016Project.Controller
 {/// <summary>
@@ -60,6 +61,9 @@ namespace ATP2016Project.Controller
             ACommand mazesize = new MazeSizeCommand(m_model, m_view);
             ACommand savemaze = new SaveMazeCommand(m_model, m_view);
             ACommand solvemaze = new SolveMazeCommand(m_model, m_view);
+            //
+            ACommand show = new showCommand(m_model, m_view);
+            //
             commands.Add(dir.GetName(), dir);
             commands.Add(display.GetName(), display);
             commands.Add(displaysolution.GetName(), displaysolution);
@@ -70,6 +74,9 @@ namespace ATP2016Project.Controller
             commands.Add(mazesize.GetName(), mazesize);
             commands.Add(savemaze.GetName(), savemaze);
             commands.Add(solvemaze.GetName(), solvemaze);
+            //
+            commands.Add(show.GetName(), show);
+            //
             return commands;
         }
 
@@ -104,6 +111,9 @@ namespace ATP2016Project.Controller
             parameters.Add("filesize", s6);
             parameters.Add("solvemaze", s3);
             parameters.Add("displaysolution", s3);
+            //
+            parameters.Add("show", s1);
+            //
             parameters.Add("exit", s7); 
             return parameters;
         }

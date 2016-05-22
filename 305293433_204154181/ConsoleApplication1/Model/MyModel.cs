@@ -34,6 +34,19 @@ namespace ATP2016Project.Model
             MazesSol = new Dictionary<string, string>();
         }
 
+        //*************************todelete********
+        public string show(string path)
+        {
+            string ans = "";
+            foreach(var s in MazesDic)
+            {
+                ans = ans + s.Key;
+            }
+           return ans;
+        }
+
+
+        //******************todelete
         /// <summary>
         /// get files and dirs in the given path
         /// </summary>
@@ -162,21 +175,11 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         public void GetLoadMaze(string path, string name)
         {
-            //Console.WriteLine("enter path");
-            //Console.WriteLine(path);
-            //Console.WriteLine("enter name");
-            //Console.WriteLine(name);
             int r = 0;
-            bool flag = true;
             List<byte> decompressed = new List<byte>();
-            //  if (File.Exists(path))
-            // {
-            //
             FileInfo fInfo = new FileInfo(path);
-
             if (fInfo.Exists)
             {
-                ///
                 try
                 {
                     using (FileStream file = new FileStream(path, FileMode.Open))
@@ -197,9 +200,6 @@ namespace ATP2016Project.Model
                         byte[] bytemaze = decompressed.ToArray();
                         Maze3d mazeToAdd = new Maze3d(bytemaze);
                         MazesDic.Add(name, mazeToAdd);
-                  //      if (MazesDic.Count > 0)
-                    //        Console.WriteLine("good job");
-                       
                     }
                 }
                 catch (Exception)

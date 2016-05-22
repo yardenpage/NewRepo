@@ -15,7 +15,7 @@ namespace ATP2016Project.View
     /// </summary>
     public class CLI : IView
     {
-        static Object myLock = new object();
+     //   static Object myLock = new object();
         private IController m_controller;
         private Stream m_input;
         private Stream m_output;
@@ -85,12 +85,12 @@ namespace ATP2016Project.View
                         }
                         try
                         {
-                           // Monitor.Wait(myLock);
+                            // Monitor.Wait(myLock);
                             if (parameters.Length == m_commandsparameters[command].Length)
                                 Console.WriteLine("NUMOFPARAMS");
                             Console.WriteLine(parameters.Length.ToString());
                             m_commands[command].DoCommand(parameters);
-                          //  Monitor.Pulse(myLock);
+                            //  Monitor.Pulse(myLock);
 
                         }
                         catch (Exception)

@@ -14,6 +14,7 @@ namespace ATP2016Project.Model
     /// </summary>
     public interface IModel
     {
+        string show(string path);
         /// <summary>
         /// get files and dirs in the given path
         /// </summary>
