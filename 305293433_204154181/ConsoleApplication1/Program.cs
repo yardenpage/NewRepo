@@ -18,17 +18,19 @@ namespace ATP2016Project
     class Program
     {
 
+
         public static void Main(string[] args)
         {
             AMazeGenerator mA = new DFS2dGenerator();
             AMazeGenerator mB = new MyMaze3dGenerator();
             AMazeGenerator mC = new SimpleMaze2dGenerator();
-
+            Dictionary<string, AMaze> MazesDic = new Dictionary<string, AMaze>();
             //testMaze2dGenerator(mA);
             //testMaze3dGenerator(mB);
             //testSearchAlgorithms();
             //testCompress();
-            testController();
+             testController();
+            
 
             Console.ReadLine();
 
@@ -63,7 +65,7 @@ namespace ATP2016Project
             testP.Add(x);
             testP.Add(y);
             testP.Add(z);
-            //Console.WriteLine(mg.measureAlgorithmTime(testP));
+            Console.WriteLine(mg.measureAlgorithmTime(testP));
             maze = mg.generate(testP);
             Position start = maze.getStartPosition();
             start.print();
@@ -84,8 +86,8 @@ namespace ATP2016Project
             P.Add(x);
             P.Add(y);
             P.Add(z);
-            //the maze surrounded walls- in each edge of the 3D maze
-            // if the value of x or y or z is 0 the cell is a wall
+            //  the maze surrounded walls- in each edge of the 3D maze
+            //         if the value of x or y or z is 0 the cell is a wall
             AMazeGenerator generator = new MyMaze3dGenerator();
             maze = generator.generate(P);
             ISearchable maze3d = new SearchableMaze3d((Maze3d)maze);
@@ -136,7 +138,7 @@ namespace ATP2016Project
                         else
                             Console.WriteLine("Step number: " + nums);
                     }
-                    //state.PrintState();           //option to present the position in the maze
+                    state.PrintState();           //option to present the position in the maze
                     state.PrintCorrdinates();
                     nums++;
                 }
@@ -164,7 +166,7 @@ namespace ATP2016Project
                         else
                             Console.WriteLine("Step number: " + nums);
                     }
-                    //state.PrintState();           //option to present the position in the maze
+                    state.PrintState();           //option to present the position in the maze
                     state.PrintCorrdinates();
                     nums++;
                 }
@@ -209,7 +211,7 @@ namespace ATP2016Project
             testP.Add(x);
             testP.Add(y);
             testP.Add(z);
-            //Console.WriteLine(mg.measureAlgorithmTime(testP));
+            // Console.WriteLine(mg.measureAlgorithmTime(testP));
             maze = (Maze3d)generator.generate(testP);
             // save the maze to a file – compressed
             byte[] byteMaze;
@@ -244,35 +246,33 @@ namespace ATP2016Project
             IView view = new CLI(controller);
             controller.SetView(view);
             view.Start();
-            
-            /*Position startMaze = new Position3d(b[3], b[4], b[5]);
-            Start = startMaze;
-            Position endMaze = new Position3d(b[6], b[7], b[8]);
-            End = endMaze;
 
-            using (Stream stdin = Console.OpenStandardInput())
-            using (Stream stdout = Console.OpenStandardOutput())
-            {
-                byte[] buffer = new byte[2048];
-                int bytes;
-                // bytes = stdin.Read(buffer, 0, buffer.Length);
-                string ans = "";
-                // while (!ans.Equals("exit"))
-                // {
-                while ((bytes = stdin.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    stdout.Write(buffer, 0, bytes);
-                    Console.WriteLine("before ans");
-                    ans = System.Text.Encoding.UTF8.GetString(buffer, 0, bytes - 2);
-                    Console.WriteLine(ans);
-                    Console.WriteLine("after ans");
-                    if (ans.Equals("exit"))
-                        Console.WriteLine("this is the end");
-                    //   ans = buffer.ToString();
+            //Position startMaze = new Position3d(b[3], b[4], b[5]);
+            //Start = startMaze;
+            //Position endMaze = new Position3d(b[6], b[7], b[8]);
+            //End = endMaze;
 
-                }
-            }*/
+            //using (Stream stdin = Console.OpenStandardInput())
+            //using (Stream stdout = Console.OpenStandardOutput())
+            //{
+            //    byte[] buffer = new byte[2048];
+            //    int bytes;
+            //     bytes = stdin.Read(buffer, 0, buffer.Length);
+            //    string ans = "";
+            //     while (!ans.Equals("exit"))
+            //     {
+            //    while ((bytes = stdin.Read(buffer, 0, buffer.Length)) > 0)
+            //    {
+            //        stdout.Write(buffer, 0, bytes);
+            //        Console.WriteLine("before ans");
+            //        ans = System.Text.Encoding.UTF8.GetString(buffer, 0, bytes - 2);
+            //        Console.WriteLine(ans);
+            //        Console.WriteLine("after ans");
+            //        if (ans.Equals("exit"))
+            //            Console.WriteLine("this is the end");
+            //           ans = buffer.ToString();
+
         }
-
     }
 }
+

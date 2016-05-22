@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 
 namespace ATP2016Project.View
 {
@@ -14,6 +15,7 @@ namespace ATP2016Project.View
     /// </summary>
     public class CLI : IView
     {
+        static Object myLock = new object();
         private IController m_controller;
         private Stream m_input;
         private Stream m_output;
@@ -76,61 +78,20 @@ namespace ATP2016Project.View
                     }
                     else
                     {
-                        if (command == "dir")
+                        parameters = new string[partedCommand.Length - 1];
+                        for (int i = 1; i < partedCommand.Length; i++)
                         {
-                            parameters = new string[1];
-                            parameters[0]= partedCommand[1];
-                            for (int i = 2; i < partedCommand.Length; i++)
-                            {
-                                parameters[0] = parameters[0] + " " + partedCommand[i];
-                            }
-                        }
-                        else if (command == "savemaze")
-                        {
-                            parameters = new string[2];
-                            parameters[0] = partedCommand[1];
-                            parameters[1] = partedCommand[2];
-                            for (int i = 3; i < partedCommand.Length; i++)
-                            {
-                                parameters[1] = parameters[1] + " " + partedCommand[i];
-                            }
-                        }
-                        else if (command == "loadmaze")
-                        {
-                            parameters = new string[2];
-                            parameters[0] = partedCommand[1];
-                            
-                            for (int i = 1; i < partedCommand.Length-1; i++)
-                            {
-                                parameters[0] = parameters[0] + " " + partedCommand[i];
-                            }
-                            parameters[1] = partedCommand[partedCommand.Length - 1];
-                        }
-                        else if (command == "filesize")
-                        {
-                            parameters = new string[1];
-                            parameters[0] = partedCommand[1];
-                            for (int i = 2; i < partedCommand.Length; i++)
-                            {
-                                parameters[0] = parameters[0] + " " + partedCommand[i];
-                            }
-                        }
-                        else
-                        {
-                            parameters = new string[partedCommand.Length - 1];
-                            for (int i = 1; i < partedCommand.Length; i++)
-                            {
-                                parameters[i - 1] = partedCommand[i];
-                            }
+                            parameters[i - 1] = partedCommand[i];
                         }
                         try
                         {
+                           // Monitor.Wait(myLock);
                             if (parameters.Length == m_commandsparameters[command].Length)
-                                m_commands[command].DoCommand(parameters);
-                            else
-                            {
-                                throw new Exception();
-                            }
+                                Console.WriteLine("NUMOFPARAMS");
+                            Console.WriteLine(parameters.Length.ToString());
+                            m_commands[command].DoCommand(parameters);
+                          //  Monitor.Pulse(myLock);
+
                         }
                         catch (Exception)
                         {

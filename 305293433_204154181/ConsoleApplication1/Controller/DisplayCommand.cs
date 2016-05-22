@@ -27,11 +27,20 @@ namespace ATP2016Project.Controller
         /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
+            Console.WriteLine("inside do commend");
             AMaze m= m_model.GetDisplay(parameters[0]);
             if (m == null)
+            {
+                Console.WriteLine("im nuull");
                 m_view.Output("maze name" + parameters[0] + "doesn't exist!");
+            }
+
             else
+            {
+                Console.WriteLine("goingdisplay");
                 m_view.DisplayMaze(m);
+            }
+           
         }
         /// <summary>
         /// get the name

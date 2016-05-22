@@ -8,6 +8,7 @@ using System.IO;
 using ATP2016Project.Model.Algorithms.Compression;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Security.Permissions;
 
 namespace ATP2016Project.Model
 {
@@ -74,10 +75,13 @@ namespace ATP2016Project.Model
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public AMaze GetDisplay(string name)
         {
+            Console.WriteLine("in my model");
             if (MazesDic.ContainsKey(name))
             {
+                Console.WriteLine("inside the dic");
                 return MazesDic[name];
             }
             return null;
@@ -91,12 +95,12 @@ namespace ATP2016Project.Model
         {
             if (MazesSol.ContainsKey(name))
             {
-               return MazesSol[name];
+                return MazesSol[name];
             }
             else
             {
-                return("the maze " + name + " isn't exist");
-            }    
+                return ("the maze " + name + " isn't exist");
+            }
         }
         /// <summary>
         /// exit 
@@ -158,29 +162,45 @@ namespace ATP2016Project.Model
         /// <param name="name"></param>
         public void GetLoadMaze(string path, string name)
         {
+            //Console.WriteLine("enter path");
+            //Console.WriteLine(path);
+            //Console.WriteLine("enter name");
+            //Console.WriteLine(name);
             int r = 0;
+            bool flag = true;
             List<byte> decompressed = new List<byte>();
-            if (File.Exists(path))
+            //  if (File.Exists(path))
+            // {
+            //
+            FileInfo fInfo = new FileInfo(path);
+
+            if (fInfo.Exists)
             {
+                ///
                 try
                 {
-                    FileStream file = new FileStream(path, FileMode.Open);
-                    //MyCompressorStream compressor = new MyCompressorStream(file, MyCompressorStream.status.decompress);
-                    byte[] byteMaze = new byte[2];
-                    MyMaze3DCompressor m = new MyMaze3DCompressor();
-                    while ((r = file.Read(byteMaze, 0, 2)) != 0)
+                    using (FileStream file = new FileStream(path, FileMode.Open))
                     {
-                        byte[] decompressbyteMaze;
-                        decompressbyteMaze = m.decompress(byteMaze);
-                        for (int j = 0; j < decompressbyteMaze.Length; j++)
+
+                        byte[] byteMaze = new byte[2];
+                        MyMaze3DCompressor m = new MyMaze3DCompressor();
+                        while ((r = file.Read(byteMaze, 0, 2)) != 0)
                         {
-                            decompressed.Add(decompressbyteMaze[j]);
+                            byte[] decompressbyteMaze;
+                            decompressbyteMaze = m.decompress(byteMaze);
+                            for (int j = 0; j < decompressbyteMaze.Length; j++)
+                            {
+                                decompressed.Add(decompressbyteMaze[j]);
+                            }
+                            Array.Clear(byteMaze, 0, byteMaze.Length);
                         }
-                        Array.Clear(byteMaze, 0, byteMaze.Length);
+                        byte[] bytemaze = decompressed.ToArray();
+                        Maze3d mazeToAdd = new Maze3d(bytemaze);
+                        MazesDic.Add(name, mazeToAdd);
+                  //      if (MazesDic.Count > 0)
+                    //        Console.WriteLine("good job");
+                       
                     }
-                    byte[] bytemaze = decompressed.ToArray();
-                    Maze3d mazeToAdd = new Maze3d(bytemaze);
-                    MazesDic.Add(name, mazeToAdd);
                 }
                 catch (Exception)
                 {
@@ -190,7 +210,7 @@ namespace ATP2016Project.Model
             }
             else
             {
-                m_controller.Output("this file is exist");
+                m_controller.Output("this file is not exist");
             }
         }
         /// <summary>
@@ -200,7 +220,7 @@ namespace ATP2016Project.Model
         /// <returns></returns>
         public string GetMazeSize(string name)
         {
-            return("The size of the maze " + name + " in Bytes is " + (((Maze3d)MazesDic[name]).toByteArray()).Length);
+            return ("The size of the maze " + name + " in Bytes is " + (((Maze3d)MazesDic[name]).toByteArray()).Length);
         }
         /// <summary>
         /// this function save in the path a compress maze
@@ -212,12 +232,20 @@ namespace ATP2016Project.Model
         {
             try
             {
-                FileStream file = new FileStream(path, FileMode.Create);
-                MyCompressorStream compressor = new MyCompressorStream(file, MyCompressorStream.status.compress);
-                AMaze maze = MazesDic[name];//get the maze object from dic
-                byte[] byteMaze = ((Maze3d)maze).toByteArray();
-                compressor.Write(byteMaze, 0, byteMaze.Length);
-                m_controller.Output("the maze " + name + " save in the given path.");
+                using (FileStream fileOutStream = new FileStream(path, FileMode.Create))
+                {
+                    using (Stream outStream = new MyCompressorStream(fileOutStream, MyCompressorStream.status.compress))
+                    {
+                        if (MazesDic.ContainsKey(name))
+                        {
+                            AMaze maze = MazesDic[name];//get the maze object from dic
+                            byte[] byteMaze = ((Maze3d)maze).toByteArray();
+                            ((MyCompressorStream)outStream).Write(byteMaze, 0, byteMaze.Length);
+                            outStream.Flush();
+                            m_controller.Output("the maze " + name + " save in the given path.");
+                        }
+                    }
+                }
             }
             catch (Exception)
             {
